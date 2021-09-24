@@ -1,0 +1,6 @@
+[book]
+authors = ["St Maxwell"]
+language = "zh"
+multilingual = false
+src = "src"
+title = "fortran-best-practices"
