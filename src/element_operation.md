@@ -35,15 +35,16 @@ print *, nroot([2, 3, 4, 5], 4._dp)
 ```
 
 如上,通常情况下,`n`是一个参数,而`x`是一个任意形状的数组。
-但是如您所见,Fortran并不在乎其形式,只要最终的操作是有意义的,
-(即如果一个参数是数组,那么其他的参数必须是相同的形状的数组或标量)。
+但是如您所见，只要最终的操作是有意义的（即如果一个参数是数组，
+那么其他的参数必须是相同的形状的数组或标量），Fortran并不在乎其形式。
 如果不满足，那么将得到一个编译错误。
 
-`elemental`关键字意味着`pure`关键字，因此过程必须是纯的。其结果是，`elemental`只能使用`pure`程序，没有副作用。您可以添加 `impure` 关键字来取消这一限制
+`elemental`关键字通常意味着`pure`关键字，因此过程必须是纯的，没有副作用。
+您可以添加 `impure` 关键字来取消这一限制
 
 ``` fortran
-    impure elemental subroutine write_all(a)
-        inetger,intent(in)::a
-        write(*,"(g0)")a
-    end subroutine write_all
+impure elemental subroutine write_all(a)
+  inetger,intent(in)::a
+  write(*,"(g0)")a
+end subroutine write_all
 ```
