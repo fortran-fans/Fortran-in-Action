@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>关于 - fortran-best-practices</title>
+        <title>整数除法 - fortran-best-practices</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="fortran-style-guide.html"><strong aria-hidden="true">2.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="floating-point-numbers.html"><strong aria-hidden="true">3.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="integer_division.html"><strong aria-hidden="true">4.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="modules_programs.html"><strong aria-hidden="true">5.</strong> 模块</a></li><li class="chapter-item expanded "><a href="arrays.html"><strong aria-hidden="true">6.</strong> 数组</a></li><li class="chapter-item expanded "><a href="multidim_arrays.html"><strong aria-hidden="true">7.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="element_operation.html"><strong aria-hidden="true">8.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="allocatable_arrays.html"><strong aria-hidden="true">9.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="file_io.html"><strong aria-hidden="true">10.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="callbacks.html"><strong aria-hidden="true">11.</strong> 回调函数</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="fortran-style-guide.html"><strong aria-hidden="true">2.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="floating-point-numbers.html"><strong aria-hidden="true">3.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="integer_division.html" class="active"><strong aria-hidden="true">4.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="modules_programs.html"><strong aria-hidden="true">5.</strong> 模块</a></li><li class="chapter-item expanded "><a href="arrays.html"><strong aria-hidden="true">6.</strong> 数组</a></li><li class="chapter-item expanded "><a href="multidim_arrays.html"><strong aria-hidden="true">7.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="element_operation.html"><strong aria-hidden="true">8.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="allocatable_arrays.html"><strong aria-hidden="true">9.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="file_io.html"><strong aria-hidden="true">10.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="callbacks.html"><strong aria-hidden="true">11.</strong> 回调函数</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,15 +134,38 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="关于本书"><a class="header" href="#关于本书">关于本书</a></h1>
-<p>作者：Ondřej Čertík、John Pask、Jed Brown、Matthew Emmett、Juan Luis Cano Rodríguez、Neil Carlson、Andrea Vigliotti、Pierre Haessig、Vincent Magnin、Sebastian Ehlert、Jeremie Vandenplas</p>
-<p>此书收集了一些现代且规范编写Fortran的方法，将针对常见的话题和任务进行代码风格指导，以及推荐最佳实践方法。总而言之，它会列举和讨论一些规范的解决方案和模式。这本书主要面向已经对Fortran语法和编写有基本了解的编程者。</p>
+                        <h1 id="整数除法"><a class="header" href="#整数除法">整数除法</a></h1>
+<p>Fortran区分浮点运算和整数运算。需要注意的是，整数除法总是使用整数算术。
+此外，虽然Fortran使用标准的运算顺序（例如，在没有括号的情况下，乘除法优先级高于加减法），
+但相同优先级的运算是从左到右计算的。
+如下，考虑一个奇数做整数除法的例子。</p>
+<pre><code class="language-fortran">integer :: n
+n = 3
+print *, n / 2  ! prints 1
+print *, n*(n + 1)/2  ! prints 6
+print *, n/2*(n + 1)  ! prints 4 (left-to-right evaluation order)
+n = -3
+print *, n / 2  ! prints -1
+</code></pre>
+<p>在实际情况中，请注意你是否真的需要使用整数算术。
+如果要改用浮点算术，请确保在使用除法运算符之前强制转换为实数，或通过乘以<code>1.0_dp</code>来分隔整数。</p>
+<pre><code class="language-fortran">integer :: n
+n = 3
+print *, real(n, dp) / 2  ! prints 1.5
+print *, n * 1.0_dp / 2  ! prints 1.5
+n = -3
+print *, real(n, dp) / 2  ! prints -1.5
+print *, n * 1.0_dp / 2  ! prints -1.5
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="next" href="fortran-style-guide.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="prev" href="floating-point-numbers.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="modules_programs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -151,7 +174,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="next" href="fortran-style-guide.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="prev" href="floating-point-numbers.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="modules_programs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

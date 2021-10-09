@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="fortran-style-guide.html"><strong aria-hidden="true">2.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="floating-point-numbers.html"><strong aria-hidden="true">3.</strong> 浮点数</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="fortran-style-guide.html"><strong aria-hidden="true">2.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="floating-point-numbers.html"><strong aria-hidden="true">3.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="integer_division.html"><strong aria-hidden="true">4.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="modules_programs.html"><strong aria-hidden="true">5.</strong> 模块</a></li><li class="chapter-item expanded "><a href="arrays.html"><strong aria-hidden="true">6.</strong> 数组</a></li><li class="chapter-item expanded "><a href="multidim_arrays.html"><strong aria-hidden="true">7.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="element_operation.html"><strong aria-hidden="true">8.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="allocatable_arrays.html"><strong aria-hidden="true">9.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="file_io.html"><strong aria-hidden="true">10.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="callbacks.html"><strong aria-hidden="true">11.</strong> 回调函数</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,7 +147,638 @@
 <li>其他的名字全部都用小写字母：尽量让名字为一到两个音节；如果需要更多音节，则用下划线使其看着清晰（<code>sortpair</code>、<code>whitechar</code>、<code>meshexp</code>、<code>numstrings</code>、<code>linspace</code>、<code>meshgrid</code>、<code>argsort</code>、<code>spline</code>、<code>spline_interp</code>、<code>spline_interpolate</code>、<code>stoperr</code>、<code>stop_error</code>、<code>meshexp_der</code>）</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="浮点数"><a class="header" href="#浮点数">浮点数</a></h1>
+<p>浮点数的默认表示形式是使用单精度（通常为32位/4字节）。对于大多数程序而言，需要更高的精度。
+为此，可以自定义种类参数。定义种类参数的方法推荐使用，</p>
 <pre><code class="language-fortran">integer, parameter :: dp = selected_real_kind(15)
+</code></pre>
+<p>也可以直接如下面这样推断种类参数，</p>
+<pre><code class="language-fortran">integer, parameter :: dp = kind(0.0d0)
+</code></pre>
+<p>或将<code>iso_fortran_env</code>内置模块中导入的种类参数重命名，</p>
+<pre><code class="language-fortran">use, intrinsic :: iso_fortran_env, only : dp =&gt; real64
+</code></pre>
+<p>有关种类参数的一些深刻的见解，请看
+<a href="https://web.archive.org/web/20200930090137/https://stevelionel.com/drfortran/2017/03/27/doctor-fortran-in-it-takes-all-kinds/">Doctor Fortran in it takes all KINDs</a>.</p>
+<p>建议有一个核心模块来定义种类参数，并在必要时包括它们。
+在此，给出此类模块的示例，</p>
+<pre><code class="language-fortran">!&gt; Numerical storage size parameters for real and integer values
+module kind_parameter
+   implicit none
+   public
+
+   !&gt; Single precision real numbers, 6 digits, range 10⁻³⁷ to 10³⁷-1; 32 bits
+   integer, parameter :: sp = selected_real_kind(6, 37)
+   !&gt; Double precision real numbers, 15 digits, range 10⁻³⁰⁷ to 10³⁰⁷-1; 64 bits
+   integer, parameter :: dp = selected_real_kind(15, 307)
+   !&gt; Quadruple precision real numbers, 33 digits, range 10⁻⁴⁹³¹ to 10⁴⁹³¹-1; 128 bits
+   integer, parameter :: qp = selected_real_kind(33, 4931)
+
+   !&gt; Char length for integers, range -2⁷ to 2⁷-1; 8 bits
+   integer, parameter :: i1 = selected_int_kind(2)
+   !&gt; Short length for integers, range -2¹⁵ to 2¹⁵-1; 16 bits
+   integer, parameter :: i2 = selected_int_kind(4)
+   !&gt; Length of default integers, range -2³¹ to 2³¹-1; 32 bits
+   integer, parameter :: i4 = selected_int_kind(9)
+   !&gt; Long length for integers, range -2⁶³ to 2⁶³-1; 64 bits
+   integer, parameter :: i8 = selected_int_kind(18)
+
+end module kind_parameter
+</code></pre>
+<p>声明浮点常量，应始终包括种类参数后缀，</p>
+<pre><code class="language-fortran">real(dp) :: a, b, c
+a = 1.0_dp
+b = 3.5_dp
+c = 1.34e8_dp
+</code></pre>
+<p>将整数赋值给浮点数(不超过有效数字限制的整数)是安全的，不会丢失精度。</p>
+<pre><code class="language-fortran">real(dp) :: a
+a = 3
+</code></pre>
+<p>为了强制使用浮点除法，
+（与整数除法<code>3/4==0</code>不同），
+可以通过以下方式将整数转换为浮点数，</p>
+<pre><code class="language-fortran">real(dp) :: a
+a = real(3, dp) / 4  ! 'a' is equal to 0.75_dp
+</code></pre>
+<p>或者简单的用乘以<code>1.0_dp</code>的乘法分隔整数除法。</p>
+<p>要在不丢失精度的情况下打印浮点数，使用无格式描述符<code>&quot;(g0)&quot;</code>或指数表示法<code>&quot;(es24.16e3)&quot;</code>，会提供17位有效数字的打印输出。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="整数除法"><a class="header" href="#整数除法">整数除法</a></h1>
+<p>Fortran区分浮点运算和整数运算。需要注意的是，整数除法总是使用整数算术。
+此外，虽然Fortran使用标准的运算顺序（例如，在没有括号的情况下，乘除法优先级高于加减法），
+但相同优先级的运算是从左到右计算的。
+如下，考虑一个奇数做整数除法的例子。</p>
+<pre><code class="language-fortran">integer :: n
+n = 3
+print *, n / 2  ! prints 1
+print *, n*(n + 1)/2  ! prints 6
+print *, n/2*(n + 1)  ! prints 4 (left-to-right evaluation order)
+n = -3
+print *, n / 2  ! prints -1
+</code></pre>
+<p>在实际情况中，请注意你是否真的需要使用整数算术。
+如果要改用浮点算术，请确保在使用除法运算符之前强制转换为实数，或通过乘以<code>1.0_dp</code>来分隔整数。</p>
+<pre><code class="language-fortran">integer :: n
+n = 3
+print *, real(n, dp) / 2  ! prints 1.5
+print *, n * 1.0_dp / 2  ! prints 1.5
+n = -3
+print *, real(n, dp) / 2  ! prints -1.5
+print *, n * 1.0_dp / 2  ! prints -1.5
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="模块和程序"><a class="header" href="#模块和程序">模块和程序</a></h1>
+<p>模块（<code>module</code>）是创建现代Fortran库和应用程序的首选方法。
+按照惯例，一个源文件应始终只包含一个模块，而模块名称应与文件路径匹配，以便在较大的项目中可以轻松浏览。
+此外还建议在模块名前加上库名，以避免在其他项目中作为依赖项使用时发生名称冲突。
+这里给出了一个模块文件的示例，</p>
+<pre><code class="language-fortran">!&gt; Interface to TOML processing library.
+!&gt;
+!&gt; ...
+module fpm_toml
+  use fpm_error, only : error_t, fatal_error, file_not_found_error
+  use fpm_strings, only : string_t
+  use tomlf, only : toml_table, toml_array, toml_key, toml_stat, get_value, &amp;
+    &amp; set_value, toml_parse, toml_error, new_table, add_table, add_array, &amp;
+    &amp; toml_serializer, len
+  implicit none
+  private
+
+  public :: read_package_file
+  public :: toml_table, toml_array, toml_key, toml_stat, get_value, set_value
+  public :: new_table, add_table, add_array, len
+  public :: toml_error, toml_serializer, toml_parse
+
+contains
+
+  !&gt; Process the configuration file to a TOML data structure
+  subroutine read_package_file(table, manifest, error)
+    !&gt; TOML data structure
+    type(toml_table), allocatable, intent(out) :: table
+    !&gt; Name of the package configuration file
+    character(len=*), intent(in) :: manifest
+    !&gt; Error status of the operation
+    type(error_t), allocatable, intent(out) :: error
+    ! ...
+  end subroutine read_package_file
+
+end module fpm_toml
+</code></pre>
+<p>本示例模块中有几点需要强调。
+首先，每个模块都以注释开始，记录模块的目的和内容。
+类似的，每个过程都以一条注释开始，简要描述其目的和虚参的意义。
+无论使用何种语言，文档都是创建长期软件的最重要部分之一。</p>
+<p>其次，显式给出导入<code>use</code>和导出<code>public</code>，通过浏览模块的源代码来检查已经使用的和可用的过程、常量和派生类型。
+导入通常应限于模块范围，而不是在每个过程或接口范围中重新导入。
+类似的，通过在一行上添加<code>private</code>语句并在<code>public</code>语句中显式列出所有导出符号，可以显式地进行导出。</p>
+<p>最后，<code>implicit none</code>语句适用于整个模块，不需要在每个过程中重复它。</p>
+<p>模块中的变量是静态的（<em>默认save属性</em>）。
+强烈建议将模块变量的使用限制为常量表达式，比如只使用常数或枚举器，或者将它们导出设置为<code>protected</code>而不是<code>public</code>。</p>
+<p>在Fortran程序中，子模块（<code>submodule</code>）可以用来打破长依赖链，缩短重新编译的时间。
+它们还给出了在不需要使用预处理器的情况下提供专门实现和优化实现的可能性。</p>
+<p>如下示例是Fortran标准库<a href="https://github.com/fortran-lang/stdlib">stdlib</a>中的积分模块，
+此处只定义了模块过程的接口，而没有实现。</p>
+<pre><code class="language-fortran">!&gt; Numerical integration
+!&gt;
+!&gt; ...
+module stdlib_quadrature
+  use stdlib_kinds, only: sp, dp, qp
+  implicit none
+  private
+
+  public :: trapz
+  ! ...
+
+  !&gt; Integrates sampled values using trapezoidal rule
+  interface trapz
+    pure module function trapz_dx_dp(y, dx) result(integral)
+      real(dp), intent(in) :: y(:)
+      real(dp), intent(in) :: dx
+      real(dp) :: integral
+    end function trapz_dx_dp
+    module function trapz_x_dp(y, x) result(integral)
+      real(dp), intent(in) :: y(:)
+      real(dp), intent(in) :: x(:)
+      real(dp) :: integral
+    end function trapz_x_dp
+  end interface trapz
+
+  ! ...
+end module stdlib_quadrature
+</code></pre>
+<p>具体实现是在单独的子模块中提供的，比如这里给出的梯形积分规则。</p>
+<pre><code class="language-fortran">!&gt; Actual implementation of the trapezoidal integration rule
+!&gt;
+!&gt; ...
+submodule (stdlib_quadrature) stdlib_quadrature_trapz
+  use stdlib_error, only: check
+  implicit none
+
+contains
+
+  pure module function trapz_dx_dp(y, dx) result(integral)
+    real(dp), intent(in) :: y(:)
+    real(dp), intent(in) :: dx
+    real(dp) :: integral
+    integer :: n
+
+    n = size(y)
+    select case (n)
+    case (0:1)
+      integral = 0.0_dp
+    case (2)
+      integral = 0.5_dp*dx*(y(1) + y(2))
+    case default
+      integral = dx*(sum(y(2:n-1)) + 0.5_dp*(y(1) + y(n)))
+    end select
+  end function trapz_dx_dp
+
+  ! ...
+end submodule stdlib_quadrature_trapz
+</code></pre>
+<p>请注意，模块过程不必在同一个子模块中实现，可以使用多个子模块来减少大型模块的编译负载。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="数组"><a class="header" href="#数组">数组</a></h1>
+<p>数组是Fortran的核心对象。动态大小数组的创建在<a href="./allocatable_arrays.html">可分配数组</a>中讨论.
+将数组传递到过程有四种方式</p>
+<ol>
+<li><em>假定形状数组(assumed-shape arrays)</em> </li>
+<li><em>假定维度数组(assumed-rank arrays</em>)</li>
+<li><em>显式形状数组(explicit-shape arrays)</em></li>
+<li><em>假定大小数组(assumed-size arrays)</em></li>
+</ol>
+<p>将数组传递给过程的首选方法是<em>假定形状</em>数组。</p>
+<pre><code class="language-fortran">subroutine f(r)
+  real(dp), intent(out) :: r(:)
+  integer :: n, i
+  n = size(r)
+  do i = 1, n
+    r(i) = 1.0_dp / i**2
+  end do
+end subroutine f
+</code></pre>
+<p>高维数组也可以以类似的方式传递。</p>
+<pre><code class="language-fortran">subroutine g(A)
+  real(dp), intent(in) :: A(:, :)
+  ...
+end subroutine g
+</code></pre>
+<p>数组通过如下方式被简单地传入，</p>
+<pre><code class="language-fortran">real(dp) :: r(5)
+call f(r)
+</code></pre>
+<p>在这种情况下没有进行数组复制。这样做的好处是数组的形状和大小信息在编译时会自动传递和检查，在运行时可以可选的检查。
+类似地，数组片段传递也可以不需要使用临时数组:</p>
+<pre><code class="language-fortran">real(dp) :: r(10)
+call f(r(1:10:2))
+call f(r(2:10:2))
+</code></pre>
+<p>这应该是你在子例程中传递数组的默认方式。</p>
+<p>避免将数组作为整片传递，因为这会模糊代码的实际意图:</p>
+<pre><code class="language-fortran">real(dp) :: r(10)
+call f(r(:))
+</code></pre>
+<p>如果要更加通用的将数组传递给过程，可以使用Fortran 2018标准中引入的<em>假定维度</em>功能</p>
+<pre><code class="language-fortran">subroutine h(r)
+  real(dp), intent(in) :: r(..)
+  select rank(r)
+  rank(1)
+  ! ...
+  rank(2)
+  ! ...
+  end select
+end subroutine h
+</code></pre>
+<p>实际维度可以在运行时使用<code>select rank</code>结构来查询。 这可以很容易地创建更多的泛型函数来处理不同维度的数组。</p>
+<p><em>显式形状</em>数组可以用于从函数返回数据，它们的大部分功能可以由<em>假定形状</em>和<em>假定维数</em>数组完成。
+但由于它经常用于与C或遗留Fortran程序的接口，因此在这里简要讨论。</p>
+<p>要使用<em>显示形状</em>数组，数组大小必须显式地作为虚参传递，如下例所示，</p>
+<pre><code class="language-fortran">subroutine f(n, r)
+  integer, intent(in) :: n
+  real(dp), intent(out) :: r(n)
+  integer :: i
+  do i = 1, n
+    r(i) = 1.0_dp / i**2
+  end do
+end subroutine f
+</code></pre>
+<p>对于高维数组，必须传递额外的索引。</p>
+<pre><code class="language-fortran">subroutine g(m, n, A)
+  integer, intent(in) :: m, n
+  real(dp), intent(in) :: A(m, n)
+  ...
+end subroutine g
+</code></pre>
+<p>可以如下方式调用，</p>
+<pre><code class="language-fortran">real(dp) :: r(5), s(3, 4)
+call f(size(r), r)
+call g(size(s, 1), size(s, 2), s)
+</code></pre>
+<p>注意，此处没有检查形状，因此以下是可能产生错误结果的合法代码:</p>
+<pre><code class="language-fortran">real(dp) :: s(3, 4)
+call g(size(s), 1, s)  ! s(12, 1) in g
+call g(size(s, 2), size(s, 1), s)  ! s(4, 3) in g
+</code></pre>
+<p>在这种情况下，保留了内存布局，但数组的形状改变了。
+此外，<em>显式形状</em>数组需要连续的内存，并且在通过非连续数组切片访问时,需要创建临时数组。</p>
+<p>使用函数返回<em>显式形状</em>数组，</p>
+<pre><code class="language-fortran">function f(n) result(r)
+  integer, intent(in) :: n
+  real(dp) :: r(n)
+  integer :: i
+  do i = 1, n
+    r(i) = 1.0_dp / i**2
+  end do
+end function f
+</code></pre>
+<p>最后，还有<em>假定大小的</em>数组，它提供最少的编译时和运行时检查，经常可以在遗留代码中找到。
+它应该避免和<em>假定形状</em>或<em>假定维度</em>数组一起使用。
+一个<em>假定大小</em>数组的虚参被星号标识为最后一个维度，这将禁止许多数组内置函数的使用，如<code>size</code>或<code>shape</code>。</p>
+<p>要检查<em>假定形状</em>数组的大小和形状是否正确，<code>size</code>和<code>shape</code>内部函数可用于查询这些属性，</p>
+<pre><code class="language-fortran">if (size(r) /= 4) error stop &quot;Incorrect size of 'r'&quot;
+if (any(shape(r) /= [2, 2])) error stop &quot;Incorrect shape of 'r'&quot;
+</code></pre>
+<p>注意，<code>size</code>返回所有维度的总大小,要获得特定维度的形状，请将第二个参数<code>dim</code>添加到函数中。</p>
+<p>可以使用数组构造器初始化数组</p>
+<pre><code class="language-fortran">integer :: r(5)
+r = [1, 2, 3, 4, 5]
+</code></pre>
+<p>隐式do循环也可以在数组构造器中使用，</p>
+<pre><code class="language-fortran">integer :: i
+real(dp) :: r(5)
+r = [(real(i**2, dp), i = 1, size(r))]
+</code></pre>
+<p>要使数组不以索引1开始，请执行以下操作：</p>
+<pre><code class="language-fortran">subroutine print_eigenvalues(kappa_min, lam)
+  integer, intent(in) :: kappa_min
+  real(dp), intent(in) :: lam(kappa_min:)
+
+  integer :: kappa
+  do kappa = kappa_min, ubound(lam, 1)
+    print *, kappa, lam(kappa)
+  end do
+end subroutine print_eigenvalues
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="高维数组"><a class="header" href="#高维数组">高维数组</a></h1>
+<p>多维数组按列优先存储，这意味着最左边（最里面）的索引是连续的。
+从实际使用角度来看，这意味着数组切片<code>V(:,1)</code>是连续的，
+而切片<code>V(1,:)</code>中的元素之间的间隔是数组列的大小。
+当将数组片段传递给希望处理连续数据的过程时，这一点非常重要。</p>
+<p>根据应用程序的不同，考虑内存的位置是很重要的，
+通常在多维度上执行操作时，顺序访问总是应该以大小为1的长度增加。</p>
+<p>在下面的例子中，计算两组点之间距离的倒数。</p>
+<p>记这些点是连续存储在数组<code>xyz1</code>/<code>xyz2</code> 中，
+而最内部的循环是矩阵<code>a</code>的最左边的索引增加。</p>
+<pre><code class="language-fortran">subroutine coulomb_matrix(xyz1, xyz2, a)
+  real(dp), intent(in) :: xyz1(:, :)
+  real(dp), intent(in) :: xyz2(:, :)
+  real(dp), intent(out) :: a(:, :)
+  integer :: i, j
+  do i = 1, size(a, 2)
+    do j = 1, size(a, 1)
+      a(j, i) = 1.0_dp/norm2(xyz1(:, j) - xyz2(:, i))
+    end do
+  end do
+end subroutine coulomb_matrix
+</code></pre>
+<p>另一个例子是三维数组的第三维缩并，</p>
+<pre><code class="language-fortran">do i = 1, size(amat, 3)
+  do j = 1, size(amat, 2)
+    do k = 1, size(amat, 1)
+      cmat(k, j) = cmat(k, j) + amat(k, j, i) * bvec(i)
+    end do
+  end do
+end do
+</code></pre>
+<p>可以在数组绑定中重映射，以使用连续数组切片。
+允许将高维数组用作低维数组，而不需要重新格式化数组，
+这样避免了有可能创建临时数组。</p>
+<p>例如，可以使用矩阵向量操作来缩并三维数组的第三维:</p>
+<pre><code class="language-fortran">subroutine matmul312(amat, bvec, cmat)
+  real(dp), contiguous, intent(in), target :: amat(:, :, :)
+  real(dp), intent(in) :: bvec(:)
+  real(dp), contiguous, intent(out), target :: cmat(:, :)
+  real(dp), pointer :: aptr(:, :)
+  real(dp), pointer :: cptr(:)
+
+  aptr(1:size(amat, 1)*size(amat, 2), 1:size(amat, 3)) =&gt; amat
+  cptr(1:size(cmat)) =&gt; cmat
+
+  cptr = matmul(aptr, bvec)
+end subroutine matmul312
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="逐元操作"><a class="header" href="#逐元操作">逐元操作</a></h1>
+<p>当使用子例程和函数时，有三种方法可以在数组上执行逐元操作:</p>
+<ul>
+<li><code>elemental</code> 过程；</li>
+<li><em>显式形状</em> 数组；</li>
+<li>实现向量的操作，并对不同的维度编写简单的包装器（内部使用<code>reshape</code>实现）。</li>
+</ul>
+<p>在第一种方法中，使用<code>elemental</code>关键字创建这样的函数:</p>
+<pre><code class="language-fortran">real(dp) elemental function nroot(n, x) result(y)
+  integer, intent(in) :: n
+  real(dp), intent(in) :: x
+  y = x**(1._dp / n)
+end function nroot
+</code></pre>
+<p>所有参数（<code>in</code>和<code>out</code>）必须是标量。例如，您可以对任何（兼容的）形状的数组使用此函数，</p>
+<pre><code class="language-fortran">print *, nroot(2, 9._dp)
+print *, nroot(2, [1._dp, 4._dp, 9._dp, 10._dp])
+print *, nroot(2, reshape([1._dp, 4._dp, 9._dp, 10._dp], [2, 2]))
+print *, nroot([2, 3, 4, 5], [1._dp, 4._dp, 9._dp, 10._dp])
+print *, nroot([2, 3, 4, 5], 4._dp)
+</code></pre>
+<p>输出如下，</p>
+<pre><code class="language-fortran">3.0000000000000000
+1.0000000000000000        2.0000000000000000        3.0000000000000000        3.1622776601683795
+1.0000000000000000        2.0000000000000000        3.0000000000000000        3.1622776601683795
+1.0000000000000000        1.5874010519681994        1.7320508075688772        1.5848931924611136
+2.0000000000000000        1.5874010519681994        1.4142135623730951        1.3195079107728942
+</code></pre>
+<p>如上，通常情况下，<code>n</code>是一个参数，而<code>x</code>是一个任意形状的数组。
+但是如您所见，只要最终的操作是有意义的（即如果一个参数是数组，
+那么其他的参数必须是相同的形状的数组或标量），Fortran并不在乎其形式。
+如果不满足，那么将得到一个编译错误。</p>
+<p><code>elemental</code>关键字通常意味着<code>pure</code>关键字，因此过程必须是纯的，没有副作用。
+您可以添加 <code>impure</code> 关键字来取消这一限制，</p>
+<pre><code class="language-fortran">impure elemental subroutine write_all(a)
+  inetger, intent(in) :: a
+  write(*,&quot;(g0)&quot;) a
+end subroutine write_all
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="可分配数组"><a class="header" href="#可分配数组">可分配数组</a></h1>
+<p><code>allocatable</code>属性为内存处理提供了安全的方式，
+与具有<code>pointer</code>属性的变量相比，其内存是自动管理的，
+一旦变量超出作用域，内存就会自动释放。 
+使用<code>allocatable</code>变量可以消除在应用程序中产生内存泄漏的可能性。</p>
+<p>可分配数组可以在子例程中用于创建临时或工作数组，
+，而自动数组可能会由于所需空间太大不能放在栈中。</p>
+<pre><code class="language-fortran">real(dp), allocatable :: temp(:)
+allocate(temp(10))
+</code></pre>
+<p>分配状态可以使用<code>allocated</code>来检查，以避免未初始化的访问。</p>
+<pre><code class="language-fortran">subroutine show_arr(arr)
+  integer, allocatable, intent(in) :: arr(:)
+
+  if (allocated(arr)) then
+    print *, arr
+  end if
+end subroutine show_arr
+</code></pre>
+<p>要在一个过程中传递使用可分配变量，虚参必须带有<code>allocatable</code>属性。
+如果与<code>intent(out)</code>结合使用，那么数组会在进入这个过程之前释放。</p>
+<pre><code class="language-fortran">subroutine foo(lam)
+  real(dp), allocatable, intent(out) :: lam(:)
+  allocate(lam(5))
+end subroutine foo
+</code></pre>
+<p>分配之后的数组可以像普通数组一样使用，</p>
+<pre><code class="language-fortran">real(dp), allocatable :: lam(:)
+call foo(lam)
+</code></pre>
+<p>已经分配的数组在没有事先释放的情况下不能再次进行分配。
+同样，只能对已分配的数组进行释放。 重新分配数组使用如下操作，</p>
+<pre><code class="language-fortran">if (allocated(lam)) deallocate(lam)
+allocate(lam(10))
+</code></pre>
+<p>将已分配的数组传递给过程虚参不需要<code>allocatable</code>属性。</p>
+<pre><code class="language-fortran">subroutine show_arr(arr)
+  integer, intent(in) :: arr(:)
+
+  print *, arr
+end subroutine show_arr
+
+subroutine proc
+  integer :: i
+  integer, allocatable :: arr(:)
+
+  allocate(arr(5))
+
+  do i = 1, size(arr)
+    arr(i) = 2*i + 1
+  end do
+  call show_arr(arr)
+end subroutine proc
+</code></pre>
+<p>在程序中传递未分配的数组将导致无效的内存访问。
+可分配数组可以传递给带<code>optional</code>属性的虚参----如果它们未被分配，
+则此参数实际上将不存在。
+<code>allocatable</code>属性不仅限于数组，还可以与标量关联，
+它可以与带<code>optional</code>属性的虚参结合使用。</p>
+<p>使用<code>move_alloc</code>内部子程序，可以在带有<code>allocatable</code>属性的数组之间移动分配属性。</p>
+<pre><code class="language-fortran">subroutine resize(var, n)
+  real(wp), allocatable, intent(inout) :: var(:)
+  integer, intent(in), optional :: n
+  integer :: this_size, new_size
+  integer, parameter :: inital_size = 16
+
+  if (allocated(var)) then
+    this_size = size(var, 1)
+    call move_alloc(var, tmp)
+  else
+    this_size = initial_size
+  end if
+
+  if (present(n)) then
+    new_size = n
+  else
+    new_size = this_size + this_size/2 + 1
+  end if
+
+  allocate(var(new_size))
+
+  if (allocated(tmp)) then
+    this_size = min(size(tmp, 1), size(var, 1))
+    var(:this_size) = tmp(:this_size)
+  end if
+end subroutine resize
+</code></pre>
+<p>最后，分配不会不初始化数组的值。
+未初始化数组的内容很可能只是之前在相应地址处的任何内容的字节。
+分配时可以使用source进行初始化，</p>
+<pre><code class="language-fortran">real(dp), allocatable :: arr(:)
+allocate(arr(10), source=0.0_dp)
+</code></pre>
+<p><code>source</code>关键字支持标量，数组变量和常量。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="文件io"><a class="header" href="#文件io">文件io</a></h1>
+<p>在Fortran中，文件由<code>unit</code>单元标识符管理。
+与文件系统的交互主要通过<code>open</code>和<code>inquire</code>内置过程进行。
+通常，工作流是打开一个文件到一个单元标识符，读和（或）写，然后再关闭它。</p>
+<pre><code class="language-fortran">integer :: io
+open(newunit=io, file=&quot;log.txt&quot;)
+! ...
+close(io)
+</code></pre>
+<p>默认情况下，如果文件还不存在，并且为同时具有读和写操作的文件，
+那么将会创建该文件。
+写入现有文件将从第一个记录（即第一行）开始，因此默认情况下会覆盖文件。</p>
+<p>要对文件的进行只读访问，必须指定<code>status</code>和<code>action</code>，</p>
+<pre><code class="language-fortran">integer :: io
+open(newunit=io, file=&quot;log.txt&quot;, status=&quot;old&quot;, action=&quot;read&quot;)
+read(io, *) a, b
+close(io)
+</code></pre>
+<p>如果文件不存在，则会发生运行时错误。
+要在打开文件之前检查文件是否存在，可以使用 <code>inquire</code>函数。</p>
+<pre><code class="language-fortran">logical :: exists
+inquire(file=&quot;log.txt&quot;, exist=exists)
+if (exists) then
+  ! ...
+end if
+</code></pre>
+<p>或者，使用<code>open</code>过程可以返回一个可选的<em>iostat</em>和<em>iomsg</em>:</p>
+<pre><code class="language-fortran">integer :: io, stat
+character(len=512) :: msg
+open(newunit=io, file=&quot;log.txt&quot;, status=&quot;old&quot;, action=&quot;read&quot;, &amp;
+  iostat=stat, iomsg=msg)
+if (stat /= 0) then
+  print *, trim(msg)
+end if
+</code></pre>
+<p>注意，<em>iomsg</em>需要一个固定长度的字符变量，它应当有足够的长度来保存错误信息。</p>
+<p>类似地，使用<em>status</em>和<em>action</em>关键字创建一个写入文件。
+如下创建一个新的写入文件，</p>
+<pre><code class="language-fortran">integer :: io
+open(newunit=io, file=&quot;log.txt&quot;, status=&quot;new&quot;, action=&quot;write&quot;)
+write(io, *) a, b
+close(io)
+</code></pre>
+<p><code>status=&quot;replace&quot;</code>可以用于覆盖现有文件。
+强烈建议在使用<em>status</em>之前，首先检查文件是否存在。</p>
+<p>要追加到输出文件，可以显式指定<em>position</em>关键字，</p>
+<pre><code class="language-fortran">integer :: io
+open(newunit=io, file=&quot;log.txt&quot;, position=&quot;append&quot;, &amp;
+  &amp; status=&quot;old&quot;, action=&quot;write&quot;)
+write(io, *) size(v)
+write(io, *) v(:)
+close(io)
+</code></pre>
+<p>要重置文件中的位置，可以使用内置过程<code>rewind</code>和<code>backspace</code>。
+<code>rewind</code>将重置为第一个记录（行），而<code>backspace</code>将返回到前一个记录（行）。</p>
+<p>最后，要删除文件，文件必须要打开，并可以在关闭后删除。</p>
+<pre><code class="language-fortran">logical :: exists
+integer :: io, stat
+inquire(file=&quot;log.txt&quot;, exist=exists)
+if (exists) then
+  open(file=&quot;log.txt&quot;, newunit=io, iostat=stat)
+  if (stat == 0) close(io, status=&quot;delete&quot;, iostat=stat)
+end if
+</code></pre>
+<p>一个有用的IO功能是暂存文件，它可以用<code>status=&quot;scratch&quot;</code>打开。 
+关闭单元标识符后，它将自动删除。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="回调函数"><a class="header" href="#回调函数">回调函数</a></h1>
+<p>回调函数是作为参数传递给另一个函数的函数。
+创建此类回调函数的首选方法是提供<em>抽象接口</em> （abstract interface）声明回调函数的特征。
+这样可以对传递的回调函数进行编译时检查。</p>
+<pre><code class="language-fortran">module integrals
+  use types, only: dp
+  implicit none
+  private
+  public :: simpson, integrable_function
+
+  abstract interface
+    function integrable_function(x) result(func)
+      import :: dp
+      real(dp), intent(in) :: x
+      real(dp) :: func
+    end function integrable_function
+  end interface
+
+contains
+
+  function simpson(f, a, b) result(s)
+    real(dp), intent(in) :: a, b
+    procedure(integrable_function) :: f
+    real(dp) :: s
+
+    s = (b-a) / 6 * (f(a) + 4*f((a+b)/2) + f(b))
+  end function simpson
+
+end module integrals
+</code></pre>
+<p>然后，通过导入模块，该函数将作为回调函数使用，如下例所示，</p>
+<pre><code class="language-fortran">module demo_functions
+  use types, only: dp
+  implicit none
+  private
+  public :: test_integral
+
+contains
+
+  subroutine test_integral(a, k)
+    real(dp), intent(in) :: a, k
+
+    print *, simpson(f, 0._dp, pi)
+    print *, simpson(f, 0._dp, 2*pi)
+  contains
+
+    function f(x) result(y)
+      real(dp), intent(in) :: x
+      real(dp) :: y
+      y = a*sin(k*x)
+    end function f
+  end subroutine test_integral
+
+end module demo_functions
+</code></pre>
+<p>如果导出抽象接口,可以创建具有正确特征的过程指针，
+还可以进一步扩展回调函数，如下所示，</p>
+<pre><code class="language-fortran">module demo_integrals
+  use types, only: dp
+  use integrals, only: simpson, integrable_function
+  implicit none
+  private
+  public :: simpson2, integrable_function
+
+contains
+
+  function simpson2(f, a, b) result(s)
+    real(dp), intent(in) :: a, b
+    procedure(integrable_function) :: f
+    real(dp) :: s
+    real(dp) :: mid
+    mid = (a + b)/2
+    s = simpson(f, a, mid) + simpson(f, mid, b)
+  end function simpson2
+
+end module demo_integrals
 </code></pre>
 
                     </main>

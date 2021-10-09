@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>关于 - fortran-best-practices</title>
+        <title>模块 - fortran-best-practices</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="fortran-style-guide.html"><strong aria-hidden="true">2.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="floating-point-numbers.html"><strong aria-hidden="true">3.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="integer_division.html"><strong aria-hidden="true">4.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="modules_programs.html"><strong aria-hidden="true">5.</strong> 模块</a></li><li class="chapter-item expanded "><a href="arrays.html"><strong aria-hidden="true">6.</strong> 数组</a></li><li class="chapter-item expanded "><a href="multidim_arrays.html"><strong aria-hidden="true">7.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="element_operation.html"><strong aria-hidden="true">8.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="allocatable_arrays.html"><strong aria-hidden="true">9.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="file_io.html"><strong aria-hidden="true">10.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="callbacks.html"><strong aria-hidden="true">11.</strong> 回调函数</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="fortran-style-guide.html"><strong aria-hidden="true">2.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="floating-point-numbers.html"><strong aria-hidden="true">3.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="integer_division.html"><strong aria-hidden="true">4.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="modules_programs.html" class="active"><strong aria-hidden="true">5.</strong> 模块</a></li><li class="chapter-item expanded "><a href="arrays.html"><strong aria-hidden="true">6.</strong> 数组</a></li><li class="chapter-item expanded "><a href="multidim_arrays.html"><strong aria-hidden="true">7.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="element_operation.html"><strong aria-hidden="true">8.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="allocatable_arrays.html"><strong aria-hidden="true">9.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="file_io.html"><strong aria-hidden="true">10.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="callbacks.html"><strong aria-hidden="true">11.</strong> 回调函数</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,15 +134,125 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="关于本书"><a class="header" href="#关于本书">关于本书</a></h1>
-<p>作者：Ondřej Čertík、John Pask、Jed Brown、Matthew Emmett、Juan Luis Cano Rodríguez、Neil Carlson、Andrea Vigliotti、Pierre Haessig、Vincent Magnin、Sebastian Ehlert、Jeremie Vandenplas</p>
-<p>此书收集了一些现代且规范编写Fortran的方法，将针对常见的话题和任务进行代码风格指导，以及推荐最佳实践方法。总而言之，它会列举和讨论一些规范的解决方案和模式。这本书主要面向已经对Fortran语法和编写有基本了解的编程者。</p>
+                        <h1 id="模块和程序"><a class="header" href="#模块和程序">模块和程序</a></h1>
+<p>模块（<code>module</code>）是创建现代Fortran库和应用程序的首选方法。
+按照惯例，一个源文件应始终只包含一个模块，而模块名称应与文件路径匹配，以便在较大的项目中可以轻松浏览。
+此外还建议在模块名前加上库名，以避免在其他项目中作为依赖项使用时发生名称冲突。
+这里给出了一个模块文件的示例，</p>
+<pre><code class="language-fortran">!&gt; Interface to TOML processing library.
+!&gt;
+!&gt; ...
+module fpm_toml
+  use fpm_error, only : error_t, fatal_error, file_not_found_error
+  use fpm_strings, only : string_t
+  use tomlf, only : toml_table, toml_array, toml_key, toml_stat, get_value, &amp;
+    &amp; set_value, toml_parse, toml_error, new_table, add_table, add_array, &amp;
+    &amp; toml_serializer, len
+  implicit none
+  private
+
+  public :: read_package_file
+  public :: toml_table, toml_array, toml_key, toml_stat, get_value, set_value
+  public :: new_table, add_table, add_array, len
+  public :: toml_error, toml_serializer, toml_parse
+
+contains
+
+  !&gt; Process the configuration file to a TOML data structure
+  subroutine read_package_file(table, manifest, error)
+    !&gt; TOML data structure
+    type(toml_table), allocatable, intent(out) :: table
+    !&gt; Name of the package configuration file
+    character(len=*), intent(in) :: manifest
+    !&gt; Error status of the operation
+    type(error_t), allocatable, intent(out) :: error
+    ! ...
+  end subroutine read_package_file
+
+end module fpm_toml
+</code></pre>
+<p>本示例模块中有几点需要强调。
+首先，每个模块都以注释开始，记录模块的目的和内容。
+类似的，每个过程都以一条注释开始，简要描述其目的和虚参的意义。
+无论使用何种语言，文档都是创建长期软件的最重要部分之一。</p>
+<p>其次，显式给出导入<code>use</code>和导出<code>public</code>，通过浏览模块的源代码来检查已经使用的和可用的过程、常量和派生类型。
+导入通常应限于模块范围，而不是在每个过程或接口范围中重新导入。
+类似的，通过在一行上添加<code>private</code>语句并在<code>public</code>语句中显式列出所有导出符号，可以显式地进行导出。</p>
+<p>最后，<code>implicit none</code>语句适用于整个模块，不需要在每个过程中重复它。</p>
+<p>模块中的变量是静态的（<em>默认save属性</em>）。
+强烈建议将模块变量的使用限制为常量表达式，比如只使用常数或枚举器，或者将它们导出设置为<code>protected</code>而不是<code>public</code>。</p>
+<p>在Fortran程序中，子模块（<code>submodule</code>）可以用来打破长依赖链，缩短重新编译的时间。
+它们还给出了在不需要使用预处理器的情况下提供专门实现和优化实现的可能性。</p>
+<p>如下示例是Fortran标准库<a href="https://github.com/fortran-lang/stdlib">stdlib</a>中的积分模块，
+此处只定义了模块过程的接口，而没有实现。</p>
+<pre><code class="language-fortran">!&gt; Numerical integration
+!&gt;
+!&gt; ...
+module stdlib_quadrature
+  use stdlib_kinds, only: sp, dp, qp
+  implicit none
+  private
+
+  public :: trapz
+  ! ...
+
+  !&gt; Integrates sampled values using trapezoidal rule
+  interface trapz
+    pure module function trapz_dx_dp(y, dx) result(integral)
+      real(dp), intent(in) :: y(:)
+      real(dp), intent(in) :: dx
+      real(dp) :: integral
+    end function trapz_dx_dp
+    module function trapz_x_dp(y, x) result(integral)
+      real(dp), intent(in) :: y(:)
+      real(dp), intent(in) :: x(:)
+      real(dp) :: integral
+    end function trapz_x_dp
+  end interface trapz
+
+  ! ...
+end module stdlib_quadrature
+</code></pre>
+<p>具体实现是在单独的子模块中提供的，比如这里给出的梯形积分规则。</p>
+<pre><code class="language-fortran">!&gt; Actual implementation of the trapezoidal integration rule
+!&gt;
+!&gt; ...
+submodule (stdlib_quadrature) stdlib_quadrature_trapz
+  use stdlib_error, only: check
+  implicit none
+
+contains
+
+  pure module function trapz_dx_dp(y, dx) result(integral)
+    real(dp), intent(in) :: y(:)
+    real(dp), intent(in) :: dx
+    real(dp) :: integral
+    integer :: n
+
+    n = size(y)
+    select case (n)
+    case (0:1)
+      integral = 0.0_dp
+    case (2)
+      integral = 0.5_dp*dx*(y(1) + y(2))
+    case default
+      integral = dx*(sum(y(2:n-1)) + 0.5_dp*(y(1) + y(n)))
+    end select
+  end function trapz_dx_dp
+
+  ! ...
+end submodule stdlib_quadrature_trapz
+</code></pre>
+<p>请注意，模块过程不必在同一个子模块中实现，可以使用多个子模块来减少大型模块的编译负载。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="next" href="fortran-style-guide.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="prev" href="integer_division.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="arrays.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -151,7 +261,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="next" href="fortran-style-guide.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="prev" href="integer_division.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="arrays.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
