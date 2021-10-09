@@ -1,8 +1,8 @@
 # 回调函数
-回调函数是作为参数传递给另一个函数的函数。
-创建此类回调函数的首选方法是提供*抽象接口* (abstract interface)声明回调函数的特征。
-这样可以对传递的回调函数进行编译时检查。
 
+回调函数是作为参数传递给另一个函数的函数。
+创建此类回调函数的首选方法是提供*抽象接口* （abstract interface）声明回调函数的特征。
+这样可以对传递的回调函数进行编译时检查。
 
 ```fortran
 module integrals
@@ -16,7 +16,7 @@ module integrals
       import :: dp
       real(dp), intent(in) :: x
       real(dp) :: func
-    end function
+    end function integrable_function
   end interface
 
 contains
@@ -31,7 +31,9 @@ contains
 
 end module integrals
 ```
-然后，通过导入模块，该函数将作为回调函数使用，如下例所示
+
+然后，通过导入模块，该函数将作为回调函数使用，如下例所示，
+
 ```fortran
 module demo_functions
   use types, only: dp
@@ -57,8 +59,9 @@ contains
 
 end module demo_functions
 ```
+
 如果导出抽象接口,可以创建具有正确特征的过程指针，
-还可以进一步扩展回调函数，如下所示
+还可以进一步扩展回调函数，如下所示，
 
 ```fortran
 module demo_integrals

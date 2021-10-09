@@ -13,7 +13,7 @@ real(dp), allocatable :: temp(:)
 allocate(temp(10))
 ```
 
-分配状态可以使用`allocated`来检查，以避免未初始化的访问
+分配状态可以使用`allocated`来检查，以避免未初始化的访问。
 
 ```fortran
 subroutine show_arr(arr)
@@ -26,7 +26,7 @@ end subroutine show_arr
 ```
 
 要在一个过程中传递使用可分配变量，虚参必须带有`allocatable`属性。
-如果与`intent(out)`结合使用，那么数组会在进入这个过程之前释放
+如果与`intent(out)`结合使用，那么数组会在进入这个过程之前释放。
 
 ```fortran
 subroutine foo(lam)
@@ -35,7 +35,7 @@ subroutine foo(lam)
 end subroutine foo
 ```
 
-分配之后的数组可以像普通数组一样使用
+分配之后的数组可以像普通数组一样使用，
 
 ```fortran
 real(dp), allocatable :: lam(:)
@@ -43,7 +43,7 @@ call foo(lam)
 ```
 
 已经分配的数组在没有事先释放的情况下不能再次进行分配。
-同样，只能对已分配的数组进行释放。 重新分配数组使用如下操作
+同样，只能对已分配的数组进行释放。 重新分配数组使用如下操作，
 
 ```fortran
 if (allocated(lam)) deallocate(lam)
@@ -111,12 +111,12 @@ end subroutine resize
 
 最后，分配不会不初始化数组的值。
 未初始化数组的内容很可能只是之前在相应地址处的任何内容的字节。
-分配时可以使用source进行初始化
+分配时可以使用source进行初始化，
 
 ```fortran
 real(dp), allocatable :: arr(:)
 allocate(arr(10), source=0.0_dp)
 ```
-`source`关键字支持标量,数组变量和常量。
+`source`关键字支持标量，数组变量和常量。
 
 

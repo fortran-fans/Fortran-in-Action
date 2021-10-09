@@ -1,6 +1,6 @@
 # 高维数组
 
-多维数组按列优先存储，这意味着最左边(最里面)的索引是连续的。
+多维数组按列优先存储，这意味着最左边（最里面）的索引是连续的。
 从实际使用角度来看，这意味着数组切片`V(:,1)`是连续的，
 而切片`V(1,:)`中的元素之间的间隔是数组列的大小。
 当将数组片段传递给希望处理连续数据的过程时，这一点非常重要。
@@ -10,9 +10,8 @@
 
 在下面的例子中，计算两组点之间距离的倒数。
 
-记这些点是连续存储在数组`xyz1 ` / ` xyz2` 中，
+记这些点是连续存储在数组`xyz1`/`xyz2` 中，
 而最内部的循环是矩阵`a`的最左边的索引增加。
-
 
 ```fortran
 subroutine coulomb_matrix(xyz1, xyz2, a)
@@ -27,8 +26,8 @@ subroutine coulomb_matrix(xyz1, xyz2, a)
   end do
 end subroutine coulomb_matrix
 ```
-另一个例子是三维数组的第三维缩并
 
+另一个例子是三维数组的第三维缩并，
 
 ```fortran
 do i = 1, size(amat, 3)
@@ -48,9 +47,9 @@ end do
 
 ```fortran
 subroutine matmul312(amat, bvec, cmat)
-  real(dp), contiguous, intent(in) ,target:: amat(:, :, :)
+  real(dp), contiguous, intent(in), target :: amat(:, :, :)
   real(dp), intent(in) :: bvec(:)
-  real(dp), contiguous, intent(out),target:: cmat(:, :)
+  real(dp), contiguous, intent(out), target :: cmat(:, :)
   real(dp), pointer :: aptr(:, :)
   real(dp), pointer :: cptr(:)
 
