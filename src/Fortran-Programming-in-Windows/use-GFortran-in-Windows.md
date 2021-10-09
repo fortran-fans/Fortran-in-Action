@@ -37,7 +37,7 @@ pacman -Ss fortran           # 查询名字中含“Fortran”字符的包
 pacman -S  ucrt64/mingw-w64-ucrt-x86_64-gcc-fortran    # 安装ucrt64版本的gfortran
 ```
 
-当然，我们还可以使用MSYS2软件，下载`GNU Make/CMake/openBLAS/Python/Golang/...`等丰富的软件或者链接库。GCC WIKI为我们提供了[一些GFortran的信息文档](https://gcc.gnu.org/wiki/GFortran)，其中就有[GFortran最新的帮助文档](https://gcc.gnu.org/onlinedocs/gfortran.pdf)。当我们不断地通过阅读官方文档了解这些工具、经常使用这些工具，也将逐渐掌控这些工具带来的优势。
+当然，我们还可以使用MSYS2软件，下载`GNU Make/CMake/openBLAS/Python/Golang/...`等丰富的软件或者链接库。GCC WIKI为我们提供了[一些GFortran的信息文档](https://gcc.gnu.org/wiki/GFortran)，其中就有[GFortran最新的帮助文档](https://gcc.gnu.org/onlinedocs/gfortran.pdf)。
 
 ```sh
 gfortran <name>.f90          # 编译fortran源代码文件
@@ -51,7 +51,7 @@ gfortran -c help             # 查询gfortran命令行参数的帮助文档
 
 ## 使用Visul Studio Code编辑器进行编码
 
-[Visual Studio Code（简称，VS Code或code）](https://code.visualstudio.com/)是一款由微软公司主导的免费、开源的代码编辑器软件。<br>如果我们是第一次使用VS Code编辑器，应该尝试阅读[VS Code帮助文档](https://code.visualstudio.com/docs)。
+[Visual Studio Code（简称，VS Code或code）](https://code.visualstudio.com/)是一款由微软公司主导的免费、开源的代码编辑器软件。<br>如果我们是第一次使用VS Code编辑器，可以尝试阅读[VS Code帮助文档](https://code.visualstudio.com/docs)。
 
 ### 推荐的VS Code插件
 
@@ -66,7 +66,6 @@ gfortran -c help             # 查询gfortran命令行参数的帮助文档
 ---
 
 + VSCode Great Icons
-+ Project Manager
 + Better TOML
 ```
 
@@ -117,7 +116,7 @@ code .                      # 使用VS Code打开当前文件夹
 
 <img src="images/hello_world-in-code.png" alt="使用VS Code编辑hello_world项目" style="zoom:75%;" />
 
-更多关于FPM软件的使用说明，请参考[Fortran Package Manager (fpm) (github.com)](https://github.com/fortran-lang/fpm)仓库。<br>作为用户，我们可以阅读🔍[`Packaging with fpm`](https://fpm.fortran-lang.org/page/Packaging.html)和[`Manifest reference`](https://fpm.fortran-lang.org/page/Manifest.html)；如果我们想成为FPM的贡献者和开发者，阅读[FPM开发者文档](https://fpm.fortran-lang.org/index.html#fortran-package-manager-developer-documentation)将是有帮助的。<br>随着不断使用FPM，我们将能很好地利用它的优势，如果发现软件BUG，我们可以在[FPM项目的GitHub仓库的议题](https://github.com/msys2/msys2.github.io/issues)🎯中寻求帮助。
+更多关于FPM软件的使用说明，请参考[Fortran Package Manager (fpm) (github.com)](https://github.com/fortran-lang/fpm)仓库。<br>作为用户，我们可以阅读🔍[`Packaging with fpm`](https://fpm.fortran-lang.org/page/Packaging.html)和[`Manifest reference`](https://fpm.fortran-lang.org/page/Manifest.html)；如果我们想成为FPM的贡献者和开发者，阅读[FPM开发者文档](https://fpm.fortran-lang.org/index.html#fortran-package-manager-developer-documentation)将是有帮助的。
 
 ### 使用CMake构建代码
 
@@ -168,4 +167,4 @@ add_executable(hello_fortran.exe
 
 <img src="images/CMake-hello_fortran2.png" alt="在VS Code中使用CMake" style="zoom:75%;" />
 
-更多的CMake使用细节，我们需要查阅[CMake官方网站](https://cmake.org/)提供的[帮助文档](https://cmake.org/documentation/)🎯。随着我们越多地使用CMake，我们将能更好地掌握它！
+更多的CMake使用细节，我们需要查阅[CMake官方网站](https://cmake.org/)提供的[帮助文档](https://cmake.org/documentation/)🎯。
