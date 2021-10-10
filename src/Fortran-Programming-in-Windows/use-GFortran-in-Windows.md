@@ -1,11 +1,11 @@
 # 在Windows系统下使用GFortran
 
-微软公司开发的Windows系统在图形用户界面🎨很强势，是我们常用的操作系统。<br>
+微软公司开发的Windows系统具有强大的图形用户界面🎨，是我们常用的操作系统。<br>
 GCC Fortran编译器，对Fortran新标准的支持非常及时，是一款免费🍻的开源软件。
 
 ## 使用MSYS2-GFortran
 
-可以将MSYS2理解为一个包管理器，集成了`pacman`和[`Mingw-w64`](https://sourceforge.net/projects/mingw/)。
+可以将MSYS2简单地理解为一个包管理器，集成了`pacman`和[`Mingw-w64`](https://sourceforge.net/projects/mingw/)。
 
 ### 安装MSYS2软件
 
@@ -44,7 +44,12 @@ gfortran --help              # 查询gfortran命令行参数的帮助文档
 ...
 ```
 
-如果我们没有更改MSYS2软件的安装路径，则安装的GFortran软件应该是在`C:\msys64`路径下的特定环境的子文件下，我们最好将它引入到Windows软件的的环境路径🔗中，以方便我们使用它（gfortran.exe）。
+如果我们没有更改MSYS2软件的安装路径，则安装的GFortran软件应该是在`C:\msys64`路径下的特定环境的子文件下，我们最好将它引入到Windows软件的的环境路径🔗中，以方便我们使用它（gfortran.exe）。例如路径，
+
+```sh
+C:/msys64/ucrt64/bin         # 二进制的可执行程序所在路径
+C:/msys64/ucrt64/lib         # 可执行程序的动态链接库依赖所在路径
+```
 
 > 🔰 这里默认我们现在大多数使用的硬件是64位的，且使用较新的MSYS2环境（UCRT），有个性化需求可以进行自定义。
 
@@ -91,7 +96,7 @@ end subroutine add
 
 [Fortran Package Manager（FPM）](https://github.com/fortran-lang/fpm)是Fortran-Lang组织主导、为Fortran语言专门定制开发的免费、开源的包管理器和构建系统。
 
-我们现在可以使用MSYS2软件来安装FPM，也可以前往[Fortran Package Manager (fpm) (github.com)](https://github.com/fortran-lang/fpm)仓库手动编译出可执行程序FPM，届时务必阅读仓库提供的帮助文档[`README.md`](https://github.com/fortran-lang/fpm#readme)。我们最好将它引入到Windows软件的的环境路径🔗中，以方便我们使用它（fpm.exe）。
+我们现在可以使用MSYS2软件来安装FPM，也可以前往[Fortran Package Manager (fpm) (github.com)](https://github.com/fortran-lang/fpm)仓库手动编译出可执行程序FPM，届时务必阅读仓库提供的帮助文档[`README.md`](https://github.com/fortran-lang/fpm#readme)。别忘了将手动编译的FPM引入Windows软件的的环境路径🔗中，以方便我们使用它（fpm.exe）。
 
 ```sh
 pacman -Ss fpm              # 查询名字中含“fpm”字符的包
@@ -118,7 +123,6 @@ code .                      # 使用VS Code打开当前文件夹
 ### 使用CMake构建代码（可选）
 
 CMake是一款免费、开源、优秀的代码构建系统，它的跨平台能力很强、支持多编译器，功能强大同时也具有一定难度。<br>
-我们可以通过MSYS2软件来安装CMake，记得将它引入到Windows软件的的环境路径🔗中，以方便我们使用它（cmake.exe）。<br>
 我们可以前往[CMake官方网站](https://cmake.org/)阅读[帮助文档](https://cmake.org/documentation/)。
 
 ```sh
@@ -173,8 +177,7 @@ add_executable(hello_fortran.exe
 ### 使用GDB来调试代码
 
 GDB是GNU开源的Debug免费软件，可以前往[GDB官网](https://www.gnu.org/software/gdb/)
-下载[帮助文档](https://sourceware.org/gdb/download/onlinedocs/gdb.pdf)。<br>
-我们可以通过MSYS2软件来安装GDB，记得将它引入到Windows软件的的环境路径🔗中，以方便我们使用它（gdb.exe）。
+下载[帮助文档](https://sourceware.org/gdb/download/onlinedocs/gdb.pdf)。
 
 ```sh
 pacman -Ss gdb              # 查询名字中含“gdb”字符的包
@@ -203,4 +206,19 @@ gdb  --help                 # 获取gdb命令行参数的帮助文档
         }
     ]
 }
+```
+
+为了方便我们查找代码BUG，GFortran提供了一些非常有用的编译选项，可以进行编译时和运行时的示警和报错。<br>
+
+```sh
+# -fcheck=bounds: 数组越界检查
+# -std=f2008: 强制使用Fortran2008的语法规范，保证程序跨编译器，跨平台
+# -Wall: 检查一些常见的Warning，例如变量未使用，变量未初始化等等
+# ... ...
+gfortran -g -fcheck=bounds -std=f2008 -Wall hello_world.f90
+```
+
+我们推荐使用FPM软件来构建代码，FPM默认会启用一些编译选项。例如，
+```
+-Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fcheck=bounds -fcoarray=single
 ```
