@@ -175,14 +175,14 @@ end module fpm_toml
 首先，每个模块都以注释开始，记录模块的目的和内容。
 类似的，每个过程都以一条注释开始，简要描述其目的和虚参的意义。
 无论使用何种语言，文档都是创建长期软件的最重要部分之一。</p>
-<p>其次，显式给出导入<code>use</code>和导出<code>public</code>，通过浏览模块的源代码来检查已经使用的和可用的过程、常量和派生类型。
+<p>其次，显式地导入<code>use</code>和导出<code>public</code>，通过浏览模块的源代码来检查已经使用的和可用的过程、常量和派生类型。
 导入通常应限于模块范围，而不是在每个过程或接口范围中重新导入。
 类似的，通过在一行上添加<code>private</code>语句并在<code>public</code>语句中显式列出所有导出符号，可以显式地进行导出。</p>
-<p>最后，<code>implicit none</code>语句适用于整个模块，不需要在每个过程中重复它。</p>
+<p>最后，<code>implicit none</code>语句在整个模块生效，不需要在每个过程中重复使用它。</p>
 <p>模块中的变量是静态的（<em>默认save属性</em>）。
-强烈建议将模块变量的使用限制为常量表达式，比如只使用常数或枚举器，或者将它们导出设置为<code>protected</code>而不是<code>public</code>。</p>
+强烈建议将模块变量的使用限制为常量表达式，比如只使用常数或枚举对象，或者将它们导出设置为<code>protected</code>而不是<code>public</code>。</p>
 <p>在Fortran程序中，子模块（<code>submodule</code>）可以用来打破长依赖链，缩短重新编译的时间。
-它们还给出了在不需要使用预处理器的情况下提供专门实现和优化实现的可能性。</p>
+它们使得我们在不使用预处理器的情况下，提供专用化和经过优化的程序实现。</p>
 <p>如下示例是Fortran标准库<a href="https://github.com/fortran-lang/stdlib">stdlib</a>中的积分模块，
 此处只定义了模块过程的接口，而没有实现。</p>
 <pre><code class="language-fortran">!&gt; Numerical integration
@@ -244,6 +244,7 @@ contains
 end submodule stdlib_quadrature_trapz
 </code></pre>
 <p>请注意，模块过程不必在同一个子模块中实现，可以使用多个子模块来减少大型模块的编译负载。</p>
+<p>最后，在构建程序时，推荐尽可能少地在程序主体内留下最终的实现。而通过从模块中复用代码实现，能使你写出可被复用的代码，并专注于将用户输入传递到库函数和库对象的程序单元。</p>
 
                     </main>
 

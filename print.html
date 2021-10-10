@@ -148,10 +148,10 @@
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="浮点数"><a class="header" href="#浮点数">浮点数</a></h1>
 <p>浮点数的默认表示形式是使用单精度（通常为32位/4字节）。对于大多数程序而言，需要更高的精度。
-为此，可以自定义种类参数。定义种类参数的方法推荐使用，</p>
+为此，可以自定义种类（kind）参数。我们推荐使用如下方式定义种类参数</p>
 <pre><code class="language-fortran">integer, parameter :: dp = selected_real_kind(15)
 </code></pre>
-<p>也可以直接如下面这样推断种类参数，</p>
+<p>在很多情景下，通过字面值常量推导得到种类参数也足以满足需求</p>
 <pre><code class="language-fortran">integer, parameter :: dp = kind(0.0d0)
 </code></pre>
 <p>或将<code>iso_fortran_env</code>内置模块中导入的种类参数重命名，</p>
@@ -159,7 +159,7 @@
 </code></pre>
 <p>有关种类参数的一些深刻的见解，请看
 <a href="https://web.archive.org/web/20200930090137/https://stevelionel.com/drfortran/2017/03/27/doctor-fortran-in-it-takes-all-kinds/">Doctor Fortran in it takes all KINDs</a>.</p>
-<p>建议有一个核心模块来定义种类参数，并在必要时包括它们。
+<p>我们建议构建一个核心模块来定义种类参数，并在必要时引入它们。
 在此，给出此类模块的示例，</p>
 <pre><code class="language-fortran">!&gt; Numerical storage size parameters for real and integer values
 module kind_parameter
@@ -184,24 +184,22 @@ module kind_parameter
 
 end module kind_parameter
 </code></pre>
-<p>声明浮点常量，应始终包括种类参数后缀，</p>
+<p>声明浮点常量，应始终写出种类参数后缀，</p>
 <pre><code class="language-fortran">real(dp) :: a, b, c
 a = 1.0_dp
 b = 3.5_dp
 c = 1.34e8_dp
 </code></pre>
-<p>将整数赋值给浮点数(不超过有效数字限制的整数)是安全的，不会丢失精度。</p>
+<p>将整数赋值给浮点数（不超过有效数字限制的整数）是安全的，不会丢失精度。</p>
 <pre><code class="language-fortran">real(dp) :: a
 a = 3
 </code></pre>
-<p>为了强制使用浮点除法，
-（与整数除法<code>3/4==0</code>不同），
-可以通过以下方式将整数转换为浮点数，</p>
+<p>为了强制使用浮点除法（与整数除法<code>3/4==0</code>不同），可以通过以下方式将整数转换为浮点数，</p>
 <pre><code class="language-fortran">real(dp) :: a
 a = real(3, dp) / 4  ! 'a' is equal to 0.75_dp
 </code></pre>
-<p>或者简单的用乘以<code>1.0_dp</code>的乘法分隔整数除法。</p>
-<p>要在不丢失精度的情况下打印浮点数，使用无格式描述符<code>&quot;(g0)&quot;</code>或指数表示法<code>&quot;(es24.16e3)&quot;</code>，会提供17位有效数字的打印输出。</p>
+<p>或者简单地用乘以<code>1.0_dp</code>的乘法分隔整数除法。</p>
+<p>要在不丢失精度的情况下打印浮点数，使用无限制格式<code>&quot;(g0)&quot;</code>或指数表示法<code>&quot;(es24.16e3)&quot;</code>，会提供17位有效数字的打印输出。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="整数除法"><a class="header" href="#整数除法">整数除法</a></h1>
 <p>Fortran区分浮点运算和整数运算。需要注意的是，整数除法总是使用整数算术。
 此外，虽然Fortran使用标准的运算顺序（例如，在没有括号的情况下，乘除法优先级高于加减法），
@@ -266,14 +264,14 @@ end module fpm_toml
 首先，每个模块都以注释开始，记录模块的目的和内容。
 类似的，每个过程都以一条注释开始，简要描述其目的和虚参的意义。
 无论使用何种语言，文档都是创建长期软件的最重要部分之一。</p>
-<p>其次，显式给出导入<code>use</code>和导出<code>public</code>，通过浏览模块的源代码来检查已经使用的和可用的过程、常量和派生类型。
+<p>其次，显式地导入<code>use</code>和导出<code>public</code>，通过浏览模块的源代码来检查已经使用的和可用的过程、常量和派生类型。
 导入通常应限于模块范围，而不是在每个过程或接口范围中重新导入。
 类似的，通过在一行上添加<code>private</code>语句并在<code>public</code>语句中显式列出所有导出符号，可以显式地进行导出。</p>
-<p>最后，<code>implicit none</code>语句适用于整个模块，不需要在每个过程中重复它。</p>
+<p>最后，<code>implicit none</code>语句在整个模块生效，不需要在每个过程中重复使用它。</p>
 <p>模块中的变量是静态的（<em>默认save属性</em>）。
-强烈建议将模块变量的使用限制为常量表达式，比如只使用常数或枚举器，或者将它们导出设置为<code>protected</code>而不是<code>public</code>。</p>
+强烈建议将模块变量的使用限制为常量表达式，比如只使用常数或枚举对象，或者将它们导出设置为<code>protected</code>而不是<code>public</code>。</p>
 <p>在Fortran程序中，子模块（<code>submodule</code>）可以用来打破长依赖链，缩短重新编译的时间。
-它们还给出了在不需要使用预处理器的情况下提供专门实现和优化实现的可能性。</p>
+它们使得我们在不使用预处理器的情况下，提供专用化和经过优化的程序实现。</p>
 <p>如下示例是Fortran标准库<a href="https://github.com/fortran-lang/stdlib">stdlib</a>中的积分模块，
 此处只定义了模块过程的接口，而没有实现。</p>
 <pre><code class="language-fortran">!&gt; Numerical integration
@@ -335,6 +333,7 @@ contains
 end submodule stdlib_quadrature_trapz
 </code></pre>
 <p>请注意，模块过程不必在同一个子模块中实现，可以使用多个子模块来减少大型模块的编译负载。</p>
+<p>最后，在构建程序时，推荐尽可能少地在程序主体内留下最终的实现。而通过从模块中复用代码实现，能使你写出可被复用的代码，并专注于将用户输入传递到库函数和库对象的程序单元。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="数组"><a class="header" href="#数组">数组</a></h1>
 <p>数组是Fortran的核心对象。动态大小数组的创建在<a href="./allocatable_arrays.html">可分配数组</a>中讨论.
 将数组传递到过程有四种方式</p>
