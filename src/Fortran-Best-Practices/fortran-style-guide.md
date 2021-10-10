@@ -1,7 +1,31 @@
 # Fortran风格指导
+
 ## 命名规则
-虽然如何命名取决于个人偏好，但是我们在这里给出一份我们喜欢的，并且在很多科学计算代码（以及Fortran standard library）中流行的风格。欢迎你也使用这一风格。
+
+虽然如何命名取决于个人偏好，但是我们在这里给出一份我们喜欢的，
+并且在很多科学计算代码（以及Fortran standard library）中流行的风格。欢迎你也使用这一风格。
+
 1. 在所有Fortran结构中使用小写字母（`do`、`subroutine`、`module`……）
 2. 对于数学变量/函数使用简短的数学上的记号（`Ylm`、`Gamma`、`gamma`、`Enl`、`Rnl`……）
-3. 其他的名字全部都用小写字母：尽量让名字为一到两个音节；如果需要更多音节，则用下划线使其看着清晰（`sortpair`、`whitechar`、`meshexp`、`numstrings`、`linspace`、`meshgrid`、`argsort`、`spline`、`spline_interp`、`spline_interpolate`、`stoperr`、`stop_error`、`meshexp_der`）
+3. 其他的名字全部都用小写字母：尽量让名字为一到两个音节；
+如果需要更多音节，则用下划线使其看着清晰（`sortpair`、`whitechar`、`meshexp`、`numstrings`、`linspace`、
+`meshgrid`、`argsort`、`spline`、`spline_interp`、`spline_interpolate`、`stoperr`、`stop_error`、`meshexp_der`）
 
+例如“spline interpolation”可以缩短为`spline_interpolation`、`spline_interpolate`、`spline_interp`、`spline`，
+但不是`splineint`（“int”可能表示积分、整数等。——太多的歧义，即使在清晰的计算代码上下文中）。
+这与 `get_argument()` 形成对比，这时表达为`getarg()` 非常整洁明了。
+
+以上是一般性准则。一般来说，选择正确的名字主要取决于，被截断的单词取第一个音节是否足够。显然，通常情况并非如此。
+因此，需要考虑下一步“尽量报持名称在2个音节或更少”，因为这确实可以影响表意和简单性。
+简单且一致的命名规则在以下情况起到很大的帮助——与别人协作编码，或回顾自己有较长时间没有关注过的历史代码。
+
+## 缩进
+
+使用一致的缩进使您的代码可读。缩进的数量是一个个人偏好的问题，最常见的选择是两个、三个或四个空格。
+
+## 与其他语言的比较
+
+另一方面，在其它的、大部分的编程世界，主要重点是以这样或那样的形式定义和使用大量复杂对象，
+其中有数以“吨”计的属性和行为，仅在定义它们的代码位置处才能知道（而不是在整个文档中使用相同的符号定义），
+使用更长、更具描述性的命名更有意义。因此，人们看到在更通用的编程语言（如C++和Python）中使用的命名约定
+与它们更通用的任务保持完全一致。但是Fortran有不同的使命（数值科学计算）。
