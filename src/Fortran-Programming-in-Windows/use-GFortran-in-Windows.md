@@ -40,7 +40,7 @@ pacman -S  ucrt64/mingw-w64-ucrt-x86_64-gcc-fortran    # 安装ucrt64版本的gf
 
 ```sh
 gfortran <name>.f90          # 编译fortran源代码文件
-gfortran -c --help           # 查询gfortran命令行参数的帮助文档
+gfortran --help              # 查询gfortran命令行参数的帮助文档
 ...
 ```
 
