@@ -4,3 +4,7 @@ language = "zh"
 multilingual = false
 src = "src"
 title = "fortran-best-practices"
+
+[output.html]
+git-repository-url = "https://github.com/fortran-fans/mdbook-test/tree/main/"
+edit-url-template = "https://github.com/fortran-fans/mdbook-test/edit/main/{path}"
