@@ -1,0 +1,328 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>在Windows系统下使用GFortran - fortran-best-practices</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">1.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">1.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">1.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">1.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">1.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">1.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">1.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">1.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/allocatable-arrays.html"><strong aria-hidden="true">1.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">1.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">1.10.</strong> 回调函数</a></li></ol></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">2.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/use-GFortran-in-Windows.html" class="active"><strong aria-hidden="true">2.1.</strong> 在Windows系统下使用GFortran</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">fortran-best-practices</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/fortran-fans/mdbook-test/tree/main/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/fortran-fans/mdbook-test/edit/main/src/Fortran-Programming-in-Windows/use-GFortran-in-Windows.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="在windows系统下使用gfortran"><a class="header" href="#在windows系统下使用gfortran">在Windows系统下使用GFortran</a></h1>
+<p>微软公司开发的Windows系统具有强大的图形用户界面🎨，是我们常用的操作系统。<br>
+GCC Fortran编译器，对Fortran新标准的支持非常及时，是一款免费🍻的开源软件。</p>
+<h2 id="使用msys2-gfortran"><a class="header" href="#使用msys2-gfortran">使用MSYS2-GFortran</a></h2>
+<p>可以将MSYS2简单地理解为一个包管理器，集成了<code>pacman</code>和<a href="https://sourceforge.net/projects/mingw/"><code>Mingw-w64</code></a>。</p>
+<h3 id="安装msys2软件"><a class="header" href="#安装msys2软件">安装MSYS2软件</a></h3>
+<p>前往<a href="https://www.msys2.org/">MSYS2项目官方网站</a>📡，点击图示箭头指向的链接，下载MSYS2软件，阅读网页提供的<a href="https://www.msys2.org/wiki/Home/">安装教程进行安装和使用</a>📜。</p>
+<img src="images/MSYS2-Main-Page.png" alt="MSYS2主页截图" style="zoom:50%;" />
+<p>当我们在使用MSYS2软件的过程中遇到困难或者软件漏洞时，我们可以向<a href="https://github.com/msys2/msys2.github.io/issues">MSYS2项目的GitHub仓库的议题</a>🎯寻求帮助。</p>
+<h3 id="安装msys2-gfortran软件"><a class="header" href="#安装msys2-gfortran软件">安装MSYS2-GFortran软件</a></h3>
+<p>首先，我们熟悉一下MSYS2软件的命令行基础操作🕹，这在MSYS2项目官方提供的文档中能找到：</p>
+<pre><code class="language-sh">pacman -Syu                  # 升级msys2内部组件和仓库信息
+pacman -Ss &lt;package_name&gt;    # 搜索软件
+pacman -S  &lt;package_name&gt;    # 安装软件
+pacman -Qs &lt;package_name&gt;    # 查询本地安装的特定软件
+pacman -Rs &lt;package_name&gt;    # 卸载软件
+pacman -R --help             # 查询命令的帮助文档
+...
+</code></pre>
+<p>请务必灵活🏓使用MSYS2软件，该软件在运行前有一些个性化的配置文件可以设置，当然保持默认也是不错的。<br>现在我们知道，可以通过下面的方式在MSYS2软件中安装GFortran：</p>
+<pre><code class="language-sh">pacman -Ss fortran           # 查询名字中含“Fortran”字符的包
+pacman -S  ucrt64/mingw-w64-ucrt-x86_64-gcc-fortran    # 安装ucrt64版本的gfortran
+</code></pre>
+<p>当然，我们还可以使用MSYS2软件，下载<code>GNU Make/CMake/openBLAS/Python/Golang/...</code>等丰富的软件或者链接库。GCC WIKI为我们提供了<a href="https://gcc.gnu.org/wiki/GFortran">一些GFortran的信息文档</a>，其中就有<a href="https://gcc.gnu.org/onlinedocs/gfortran.pdf">GFortran最新的帮助文档</a>。</p>
+<pre><code class="language-sh">gfortran &lt;name&gt;.f90          # 编译fortran源代码文件
+gfortran --help              # 查询gfortran命令行参数的帮助文档
+...
+</code></pre>
+<p>如果我们没有更改MSYS2软件的安装路径，则安装的GFortran软件应该是在<code>C:\msys64</code>路径下的特定环境的子文件下，我们最好将它引入到Windows软件的的环境路径🔗中，以方便我们使用它（gfortran.exe）。例如路径，</p>
+<pre><code class="language-sh">C:/msys64/ucrt64/bin         # 二进制的可执行程序所在路径
+C:/msys64/ucrt64/lib         # 可执行程序的动态链接库依赖所在路径
+</code></pre>
+<blockquote>
+<p>🔰 这里默认我们现在大多数使用的硬件是64位的，且使用较新的MSYS2环境（UCRT），有个性化需求可以进行自定义。</p>
+</blockquote>
+<h2 id="使用visul-studio-code编辑器进行编码"><a class="header" href="#使用visul-studio-code编辑器进行编码">使用Visul Studio Code编辑器进行编码</a></h2>
+<p><a href="https://code.visualstudio.com/">Visual Studio Code（简称，VS Code或code）</a>是一款由微软公司主导的免费开源、逐渐强大的代码编辑器软件。<br>
+初次使用VS Code编辑器，可以尝试阅读<a href="https://code.visualstudio.com/docs">VS Code帮助文档</a>。</p>
+<h3 id="推荐的vs-code插件"><a class="header" href="#推荐的vs-code插件">推荐的VS Code插件</a></h3>
+<p>针对Fortran编程，我们有一些可以方便特定编程需求的插件🛠，被列出来仅供参考：</p>
+<pre><code class="language-markdown">+ 中文软件包插件
++ Modern Fortran
++ Fortran IntelliSense
++ GDB Debugger - Beyond
++ VSCode Great Icons (可选)
++ Better TOML (可选)
+</code></pre>
+<h3 id="推荐的编程样式"><a class="header" href="#推荐的编程样式">推荐的编程样式</a></h3>
+<p>为了提高代码的可读性💡，可以使用以下的单元编程样式：</p>
+<pre><code class="language-fortran">!&gt; 相加
+subroutine add(x, y, z)
+    
+    real, intent(in)  :: x, y
+    real, intent(out) :: z     !! 返回值
+    
+    !&gt; 加法
+    z = x + y
+    
+end subroutine add
+</code></pre>
+<p>在区块代码前使用<code>!&gt;</code>注释标头使得VS Code的Fortran插件能解析注释；在单行注释时，有品位地使用<code>!&gt;</code>或<code>!!</code>可以提高代码的可读性。</p>
+<blockquote>
+<p><code>!&gt;</code>注释标头被<a href="https://github.com/fortran-lang">Fortran-Lang组织</a>与<a href="https://fortran-lang.discourse.group/">社区</a>广泛使用。</p>
+</blockquote>
+<h3 id="使用fpm构建fortran代码"><a class="header" href="#使用fpm构建fortran代码">使用FPM构建Fortran代码</a></h3>
+<p><a href="https://github.com/fortran-lang/fpm">Fortran Package Manager（FPM）</a>是Fortran-Lang组织主导、为Fortran语言专门定制开发的免费、开源的包管理器和构建系统。</p>
+<p>我们现在可以使用MSYS2软件来安装FPM，也可以前往<a href="https://github.com/fortran-lang/fpm">Fortran Package Manager (fpm) (github.com)</a>仓库手动编译出可执行程序FPM，届时务必阅读仓库提供的帮助文档<a href="https://github.com/fortran-lang/fpm#readme"><code>README.md</code></a>。别忘了将手动编译的FPM引入Windows软件的的环境路径🔗中，以方便我们使用它（fpm.exe）。</p>
+<pre><code class="language-sh">pacman -Ss fpm              # 查询名字中含“fpm”字符的包
+pacman -S ucrt64/mingw-w64-ucrt-x86_64-fpm  # 安装fpm软件
+</code></pre>
+<p><strong>我们来演示一个FPM项目的初始化、编写、构建、运行：</strong></p>
+<p>我们可以搭配命令行工具（pwsh、bash）使用FPM，也可以在VS Code打开hello_world文件夹，<strong>此后我们就可以专心编写代码了</strong>💻。</p>
+<pre><code class="language-sh">fpm new hello_world &amp;&amp; cd hello_world       # 新建FPM项目并切换到文件夹下: hello_world
+fpm build                   # 编译FPM项目
+fpm run                     # 运行主程序🚀
+fpm test --help             # 获取特定命令行参数的帮助文档
+code .                      # 使用VS Code打开当前文件夹
+...
+</code></pre>
+<img src="images/hello_world-in-code.png" alt="使用VS Code编辑hello_world项目" style="zoom:75%;" />
+<p>作为用户，我们可以阅读🔍<a href="https://fpm.fortran-lang.org/page/Packaging.html"><code>Packaging with fpm</code></a>和<a href="https://fpm.fortran-lang.org/page/Manifest.html"><code>Manifest reference</code></a>；如果我们想成为FPM的贡献者和开发者，阅读<a href="https://fpm.fortran-lang.org/index.html#fortran-package-manager-developer-documentation">FPM开发者文档</a>将是有帮助的。</p>
+<h3 id="使用cmake构建代码可选"><a class="header" href="#使用cmake构建代码可选">使用CMake构建代码（可选）</a></h3>
+<p>CMake是一款免费、开源、优秀的代码构建系统，它的跨平台能力很强、支持多编译器，功能强大同时也具有一定难度。<br>
+我们可以前往<a href="https://cmake.org/">CMake官方网站</a>阅读<a href="https://cmake.org/documentation/">帮助文档</a>。</p>
+<pre><code class="language-sh">pacman -Ss cmake            # 查询名字中含“cmake”字符的包
+pacman -S  ucrt64/mingw-w64-ucrt-x86_64-cmake   # 安装CMake软件
+cmake  --help               # 获取cmake命令行参数的帮助文档
+</code></pre>
+<h4 id="单个源文件代码"><a class="header" href="#单个源文件代码">单个源文件代码</a></h4>
+<p>CMake使用配置文件来构建我们的代码，如<code>CMakelists.txt</code>。假设我们想构建一个“Hello Fortran”代码，在<code>hello_fortran.f90</code>同一文件夹下，我们创建一个<code>CMakelists.txt</code>：</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.0)                     # 设置要使用CMake的最小版本，此处取为3.0
+
+project(fortran_basics LANGUAGES Fortran)               # 设置工程的名字为fortran_basics，和编译工程的编程语言为Fortran
+
+set(CMAKE_Fortran_MODULE_DIRECTORY
+    ${CMAKE_BINARY_DIR}/modules)
+file(MAKE_DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY})  # 设置编译器编译代码生成的*.mod文件被储存在目标构建文件夹下
+
+add_compile_options(-Wall -Wextra)                      # 设置额外的编译器选项（命令行参数），此处为`-Wall -Wextra`
+
+add_executable(hello_fortran.exe hello_fortran.f90)     # 设置具体的编译内容，此处设置将hello_fortran.f90编译成hello_fortran.exe
+</code></pre>
+<p>当我们编译代码时，CMake会生成很多具体的配置文件，可以将它们生成在一个叫做<code>build</code>的文件夹下，以保持整齐的文件夹内容。</p>
+<pre><code class="language-sh">mkdir build &amp;&amp; cd build     # 新建一个文件夹`build`，并切换到该文件夹
+cmake -G &quot;MSYS Makefiles&quot; ..    # CMake根据命令行参数`-G &quot;MSYS Makefiles&quot; ..`和CMakelists.txt的信息生成makefiles
+make                        # 现在我们可以使用make来编译代码了
+./hello_fortran.exe         # 编译成功，我们可以运行代码了
+</code></pre>
+<img src="images/CMake-hello_fortran.png" alt="在VS Code中使用CMake" style="zoom:75%;" />
+<h4 id="多个源代码文件"><a class="header" href="#多个源代码文件">多个源代码文件</a></h4>
+<pre><code class="language-cmake">add_executable(hello_fortran.exe 
+    hello_fortran.f90
+    print_stars.f90)  # 我们需要更新CMakelists.txt中具体的编译内容，增加print_stars.f90编译到hello_fortran.exe
+</code></pre>
+<img src="images/CMake-hello_fortran2.png" alt="在VS Code中使用CMake" style="zoom:75%;" />
+<h2 id="使用vs-code进行代码调试"><a class="header" href="#使用vs-code进行代码调试">使用VS Code进行代码调试</a></h2>
+<p>调试的方法主要有两种，一种是<code>write</code>到屏幕或文件中，另一种是使用GDB类的软件来调试。</p>
+<h3 id="使用gdb来调试代码"><a class="header" href="#使用gdb来调试代码">使用GDB来调试代码</a></h3>
+<p>GDB是GNU开源的Debug免费软件，可以前往<a href="https://www.gnu.org/software/gdb/">GDB官网</a>
+下载<a href="https://sourceware.org/gdb/download/onlinedocs/gdb.pdf">帮助文档</a>。</p>
+<pre><code class="language-sh">pacman -Ss gdb              # 查询名字中含“gdb”字符的包
+pacman -S  ucrt64/mingw-w64-ucrt-x86_64-gdb     # 安装gdb软件
+gdb  --help                 # 获取gdb命令行参数的帮助文档
+</code></pre>
+<p>使用GDB软件的命令行模式更强大，但也对使用者的要求也更高。<br>
+在VS Code中我们可以通过安装<code>GDB Debugger - Beyond</code>插件扩展来运行<strong>图形化的GDB调试流程</strong>。</p>
+<p><img src="https://dev.azure.com/coolchyni/00de68fc-20fd-4cff-8681-a0a0be966def/_apis/git/repositories/ce435a7c-1ae2-41d1-b97d-5c3f504c4c92/items?path=%2fbeyond-debug.gif&amp;versionDescriptor%5bversionOptions%5d=0&amp;versionDescriptor%5bversionType%5d=0&amp;versionDescriptor%5bversion%5d=master&amp;resolveLfs=true&amp;format=octetStream&amp;api-version=5.0" alt="GDB" /></p>
+<p>你需要做的是先完整地阅读<a href="https://marketplace.visualstudio.com/items?itemName=coolchyni.beyond-debug">它的概述📌</a>（上面动图来自该概述链接），
+然后在<code>GDB Debugger - Beyond</code>插件生成的<code>.vscode/launch.json</code>文件中设置好输出<code>-g</code>后的可执行程序<code>*.exe</code>，设置好断点，启动调试模式！</p>
+<pre><code class="language-json">{
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;type&quot;: &quot;by-gdb&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;name&quot;: &quot;Launch(gdb)&quot;,
+            &quot;program&quot;: &quot;./a.exe&quot;,  // 设置好输出`-g`的含调试信息的可执行程序，最好使用相对路径，简单易用。
+            &quot;cwd&quot;: &quot;${workspaceRoot}&quot;
+        }
+    ]
+}
+</code></pre>
+<p>为了方便我们查找代码BUG，GFortran提供了一些非常有用的编译选项，可以进行编译时和运行时的示警和报错。<br></p>
+<pre><code class="language-sh"># -fcheck=bounds: 数组越界检查
+# -std=f2008: 强制使用Fortran2008的语法规范，保证程序跨编译器，跨平台
+# -Wall: 检查一些常见的Warning，例如变量未使用，变量未初始化等等
+# ... ...
+gfortran -g -fcheck=bounds -std=f2008 -Wall hello_world.f90
+</code></pre>
+<p>我们推荐使用FPM软件来构建代码，FPM默认会启用一些编译选项。例如，</p>
+<pre><code>-Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fcheck=bounds -fcoarray=single
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../Fortran-Programming-in-Windows/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../Fortran-Programming-in-Windows/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

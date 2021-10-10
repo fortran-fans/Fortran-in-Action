@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>可分配数组 - fortran-best-practices</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">1.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">1.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">1.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">1.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">1.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">1.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">1.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">1.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/allocatable-arrays.html" class="active"><strong aria-hidden="true">1.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">1.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">1.10.</strong> 回调函数</a></li></ol></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">2.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/use-GFortran-in-Windows.html"><strong aria-hidden="true">2.1.</strong> 在Windows系统下使用GFortran</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">fortran-best-practices</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/fortran-fans/mdbook-test/tree/main/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/fortran-fans/mdbook-test/edit/main/src/Fortran-Best-Practices/allocatable-arrays.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="可分配数组"><a class="header" href="#可分配数组">可分配数组</a></h1>
+<p><code>allocatable</code>属性为内存处理提供了安全的方式，
+与具有<code>pointer</code>属性的变量相比，其内存是自动管理的，
+一旦变量超出作用域，内存就会自动释放。 
+使用<code>allocatable</code>变量可以消除在应用程序中产生内存泄漏的可能性。</p>
+<p>可分配数组可以在子例程中用于创建临时或工作数组，
+，而自动数组可能会由于所需空间太大不能放在栈中。</p>
+<pre><code class="language-fortran">real(dp), allocatable :: temp(:)
+allocate(temp(10))
+</code></pre>
+<p>分配状态可以使用<code>allocated</code>来检查，以避免未初始化的访问。</p>
+<pre><code class="language-fortran">subroutine show_arr(arr)
+  integer, allocatable, intent(in) :: arr(:)
+
+  if (allocated(arr)) then
+    print *, arr
+  end if
+end subroutine show_arr
+</code></pre>
+<p>要在一个过程中传递使用可分配变量，虚参必须带有<code>allocatable</code>属性。
+如果与<code>intent(out)</code>结合使用，那么数组会在进入这个过程之前释放。</p>
+<pre><code class="language-fortran">subroutine foo(lam)
+  real(dp), allocatable, intent(out) :: lam(:)
+  allocate(lam(5))
+end subroutine foo
+</code></pre>
+<p>分配之后的数组可以像普通数组一样使用，</p>
+<pre><code class="language-fortran">real(dp), allocatable :: lam(:)
+call foo(lam)
+</code></pre>
+<p>已经分配的数组在没有事先释放的情况下不能再次进行分配。
+同样，只能对已分配的数组进行释放。 重新分配数组使用如下操作，</p>
+<pre><code class="language-fortran">if (allocated(lam)) deallocate(lam)
+allocate(lam(10))
+</code></pre>
+<p>将已分配的数组传递给过程虚参不需要<code>allocatable</code>属性。</p>
+<pre><code class="language-fortran">subroutine show_arr(arr)
+  integer, intent(in) :: arr(:)
+
+  print *, arr
+end subroutine show_arr
+
+subroutine proc
+  integer :: i
+  integer, allocatable :: arr(:)
+
+  allocate(arr(5))
+
+  do i = 1, size(arr)
+    arr(i) = 2*i + 1
+  end do
+  call show_arr(arr)
+end subroutine proc
+</code></pre>
+<p>在程序中传递未分配的数组将导致无效的内存访问。
+可分配数组可以传递给带<code>optional</code>属性的虚参----如果它们未被分配，
+则此参数实际上将不存在。
+<code>allocatable</code>属性不仅限于数组，还可以与标量关联，
+它可以与带<code>optional</code>属性的虚参结合使用。</p>
+<p>使用<code>move_alloc</code>内部子程序，可以在带有<code>allocatable</code>属性的数组之间移动分配属性。</p>
+<pre><code class="language-fortran">subroutine resize(var, n)
+  real(wp), allocatable, intent(inout) :: var(:)
+  integer, intent(in), optional :: n
+  integer :: this_size, new_size
+  integer, parameter :: inital_size = 16
+
+  if (allocated(var)) then
+    this_size = size(var, 1)
+    call move_alloc(var, tmp)
+  else
+    this_size = initial_size
+  end if
+
+  if (present(n)) then
+    new_size = n
+  else
+    new_size = this_size + this_size/2 + 1
+  end if
+
+  allocate(var(new_size))
+
+  if (allocated(tmp)) then
+    this_size = min(size(tmp, 1), size(var, 1))
+    var(:this_size) = tmp(:this_size)
+  end if
+end subroutine resize
+</code></pre>
+<p>最后，分配不会不初始化数组的值。
+未初始化数组的内容很可能只是之前在相应地址处的任何内容的字节。
+分配时可以使用source进行初始化，</p>
+<pre><code class="language-fortran">real(dp), allocatable :: arr(:)
+allocate(arr(10), source=0.0_dp)
+</code></pre>
+<p><code>source</code>关键字支持标量，数组变量和常量。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../Fortran-Best-Practices/element-operation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../Fortran-Best-Practices/file-io.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../Fortran-Best-Practices/element-operation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../Fortran-Best-Practices/file-io.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
