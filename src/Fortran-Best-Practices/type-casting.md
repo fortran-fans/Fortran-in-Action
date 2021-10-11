@@ -432,6 +432,8 @@ end module
 ## 关于 C的`void *`，Fortran 的两种实现方式 `type(c_ptr)`和`transfer`的完整示例
 
 这里有三个等价代码：在C中使用`void*`，在Fortran中使用`type(c_ptr)`和`transfer()`：
+
+
 | **Language**    | **Method**           | **Link**                          |
 |:-               |:-                    |:-                                 |
 | C               | `void *`             | <https://gist.github.com/1665641> |
