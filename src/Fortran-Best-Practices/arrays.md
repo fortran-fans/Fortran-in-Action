@@ -1,6 +1,6 @@
 # 数组
 
-数组是Fortran的核心对象。动态大小数组的创建在[可分配数组](./allocatable_arrays.md)中讨论.
+数组是Fortran的核心对象。动态大小数组的创建在[可分配数组](./allocatable-arrays.md)中讨论.
 将数组传递到过程有四种方式
 1. *假定形状数组（assumed-shape arrays）* 
 2. *假定维度数组（assumed-rank arrays）*
