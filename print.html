@@ -1157,12 +1157,12 @@ end subroutine
 end module
 </code></pre>
 <h2 id="关于-c的void-fortran-的两种实现方式-typec_ptr和transfer的完整示例"><a class="header" href="#关于-c的void-fortran-的两种实现方式-typec_ptr和transfer的完整示例">关于 C的<code>void *</code>，Fortran 的两种实现方式 <code>type(c_ptr)</code>和<code>transfer</code>的完整示例</a></h2>
-<p>这里有三个等价代码：在C中使用<code>void*</code>，在Fortran中使用<code>type(c_ptr)</code>和<code>transfer()</code>：
-| <strong>Language</strong>    | <strong>Method</strong>           | <strong>Link</strong>                          |
-|:-               |:-                    |:-                                 |
-| C               | <code>void *</code>             | <a href="https://gist.github.com/1665641">https://gist.github.com/1665641</a> |
-| Fortran         | <code>type(c_ptr)</code>        | <a href="https://gist.github.com/1665626">https://gist.github.com/1665626</a> |
-| Fortran         | <code>transfer()</code>         | <a href="https://gist.github.com/1665630">https://gist.github.com/1665630</a> |</p>
+<p>这里有三个等价代码：在C中使用<code>void*</code>，在Fortran中使用<code>type(c_ptr)</code>和<code>transfer()</code>：</p>
+<table><thead><tr><th align="left"><strong>Language</strong></th><th align="left"><strong>Method</strong></th><th align="left"><strong>Link</strong></th></tr></thead><tbody>
+<tr><td align="left">C</td><td align="left"><code>void *</code></td><td align="left"><a href="https://gist.github.com/1665641">https://gist.github.com/1665641</a></td></tr>
+<tr><td align="left">Fortran</td><td align="left"><code>type(c_ptr)</code></td><td align="left"><a href="https://gist.github.com/1665626">https://gist.github.com/1665626</a></td></tr>
+<tr><td align="left">Fortran</td><td align="left"><code>transfer()</code></td><td align="left"><a href="https://gist.github.com/1665630">https://gist.github.com/1665630</a></td></tr>
+</tbody></table>
 <p>C代码使用标准的C方法来编写接受回调和上下文的可扩展库。两个Fortran代码展示了如何做同样的事情。 <code>type(c_ptr)</code>方法与C版本等效，这是应该使用的方法。</p>
 <p>这里的<code>transfer()</code>方法只是为了完善对比（在Fortran2003之前，这是唯一的方法），它有点麻烦，因为用户需要为每个类型创建辅助转换函数。因此，推荐使用<code>type(c_ptr)</code>方法代替它。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="在windows系统下进行fortran编程"><a class="header" href="#在windows系统下进行fortran编程">在Windows系统下进行Fortran编程</a></h1>
