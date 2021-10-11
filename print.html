@@ -143,12 +143,28 @@
 <p>此书收集了一些现代且规范编写Fortran的方法，将针对常见的话题和任务进行代码风格指导，以及推荐最佳实践方法。总而言之，它会列举和讨论一些规范的解决方案和模式。这本书主要面向已经对Fortran语法和编写有基本了解的编程者。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="fortran风格指导"><a class="header" href="#fortran风格指导">Fortran风格指导</a></h1>
 <h2 id="命名规则"><a class="header" href="#命名规则">命名规则</a></h2>
-<p>虽然如何命名取决于个人偏好，但是我们在这里给出一份我们喜欢的，并且在很多科学计算代码（以及Fortran standard library）中流行的风格。欢迎你也使用这一风格。</p>
+<p>虽然如何命名取决于个人偏好，但是我们在这里给出一份我们喜欢的，
+并且在很多科学计算代码（以及Fortran standard library）中流行的风格。欢迎你也使用这一风格。</p>
 <ol>
 <li>在所有Fortran结构中使用小写字母（<code>do</code>、<code>subroutine</code>、<code>module</code>……）</li>
 <li>对于数学变量/函数使用简短的数学上的记号（<code>Ylm</code>、<code>Gamma</code>、<code>gamma</code>、<code>Enl</code>、<code>Rnl</code>……）</li>
-<li>其他的名字全部都用小写字母：尽量让名字为一到两个音节；如果需要更多音节，则用下划线使其看着清晰（<code>sortpair</code>、<code>whitechar</code>、<code>meshexp</code>、<code>numstrings</code>、<code>linspace</code>、<code>meshgrid</code>、<code>argsort</code>、<code>spline</code>、<code>spline_interp</code>、<code>spline_interpolate</code>、<code>stoperr</code>、<code>stop_error</code>、<code>meshexp_der</code>）</li>
+<li>其他的名字全部都用小写字母：尽量让名字为一到两个音节；
+如果需要更多音节，则用下划线使其看着清晰（<code>sortpair</code>、<code>whitechar</code>、<code>meshexp</code>、<code>numstrings</code>、<code>linspace</code>、
+<code>meshgrid</code>、<code>argsort</code>、<code>spline</code>、<code>spline_interp</code>、<code>spline_interpolate</code>、<code>stoperr</code>、<code>stop_error</code>、<code>meshexp_der</code>）</li>
 </ol>
+<p>例如“spline interpolation”可以缩短为<code>spline_interpolation</code>、<code>spline_interpolate</code>、<code>spline_interp</code>、<code>spline</code>，
+但不是<code>splineint</code>（“int”可能表示积分、整数等。——太多的歧义，即使在清晰的计算代码上下文中）。
+这与 <code>get_argument()</code> 形成对比，这时表达为<code>getarg()</code> 非常整洁明了。</p>
+<p>以上是一般性准则。一般来说，选择正确的名字主要取决于，被截断的单词取第一个音节是否足够。显然，通常情况并非如此。
+因此，需要考虑下一步“尽量报持名称在2个音节或更少”，因为这确实可以影响表意和简单性。
+简单且一致的命名规则在以下情况起到很大的帮助——与别人协作编码，或回顾自己有较长时间没有关注过的历史代码。</p>
+<h2 id="缩进"><a class="header" href="#缩进">缩进</a></h2>
+<p>使用一致的缩进使您的代码可读。缩进的数量是一个个人偏好的问题，最常见的选择是两个、三个或四个空格。</p>
+<h2 id="与其他语言的比较"><a class="header" href="#与其他语言的比较">与其他语言的比较</a></h2>
+<p>另一方面，在其它的、大部分的编程世界，主要重点是以这样或那样的形式定义和使用大量复杂对象，
+其中有数以“吨”计的属性和行为，仅在定义它们的代码位置处才能知道（而不是在整个文档中使用相同的符号定义），
+使用更长、更具描述性的命名更有意义。因此，人们看到在更通用的编程语言（如C++和Python）中使用的命名约定
+与它们更通用的任务保持完全一致。但是Fortran有不同的使命（数值科学计算）。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="浮点数"><a class="header" href="#浮点数">浮点数</a></h1>
 <p>浮点数的默认表示形式是使用单精度（通常为32位/4字节）。对于大多数程序而言，需要更高的精度。
 为此，可以自定义种类（kind）参数。我们推荐使用如下方式定义种类参数</p>
@@ -338,7 +354,7 @@ end submodule stdlib_quadrature_trapz
 <p>请注意，模块过程不必在同一个子模块中实现，可以使用多个子模块来减少大型模块的编译负载。</p>
 <p>最后，在构建程序时，推荐尽可能少地在程序主体内留下最终的实现。而通过从模块中复用代码实现，能使你写出可被复用的代码，并专注于将用户输入传递到库函数和库对象的程序单元。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="数组"><a class="header" href="#数组">数组</a></h1>
-<p>数组是Fortran的核心对象。动态大小数组的创建在<a href="Fortran-Best-Practices/./allocatable_arrays.html">可分配数组</a>中讨论.
+<p>数组是Fortran的核心对象。动态大小数组的创建在<a href="Fortran-Best-Practices/./allocatable-arrays.html">可分配数组</a>中讨论.
 将数组传递到过程有四种方式</p>
 <ol>
 <li><em>假定形状数组（assumed-shape arrays）</em> </li>
@@ -707,7 +723,7 @@ end if
 关闭单元标识符后，它将自动删除。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="回调函数"><a class="header" href="#回调函数">回调函数</a></h1>
 <p>回调函数是作为参数传递给另一个函数的函数。
-创建此类回调函数的首选方法是提供<em>抽象接口</em> （abstract interface）声明回调函数的特征。
+创建此类回调函数的首选方法是提供<em>抽象接口</em>（abstract interface）声明回调函数的特征。
 这样可以对传递的回调函数进行编译时检查。</p>
 <pre><code class="language-fortran">module integrals
   use types, only: dp
