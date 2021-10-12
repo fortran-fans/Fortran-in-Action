@@ -3,6 +3,8 @@
 微软公司开发的Windows系统具有强大的图形用户界面🎨，是我们常用的操作系统。<br>
 GCC Fortran编译器，对Fortran新标准的支持非常及时，是一款免费🍻的开源软件。
 
+> 🔰 提示：以下教程，同样适用于在**Visual Studio Code**中使用Intel OneAPI（需要做出适应性改变：gfortran改为ifort）。安装OneAPI请参考[安装OneAPI的独立组件（第二种方案）](use-OneAPI-in-Windows.md#安装oneapi的独立组件第二种方案)。
+
 ## 使用MSYS2-GFortran
 
 可以将MSYS2简单地理解为一个包管理器，集成了`pacman`和[`Mingw-w64`](https://sourceforge.net/projects/mingw/)。

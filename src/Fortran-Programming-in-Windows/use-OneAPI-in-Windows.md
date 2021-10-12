@@ -1,6 +1,6 @@
 # 在Windows系统下使用OneAPI套件
 
-[Intel OneAPI]()为我们免费提供了两个版本的Fortran编译器，一个是经典的`ifort`，另一个是基于LLVM后端的`ifx`（尚处于beta版本），且拥有强大的MKL数学库，配套完善的开发测试组件，还有[丰富的帮助文档](https://software.intel.com/content/www/us/en/develop/documentation.html)📔。
+[Intel OneAPI](https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html)为我们免费提供了两个版本的Fortran编译器，一个是经典的`ifort`，另一个是基于LLVM后端的`ifx`（尚处于beta版本），且拥有强大的MKL数学库，配套完善的开发测试组件，还有[丰富的帮助文档](https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-fortran-compiler/top/get-started-on-windows.html)📔。
 
 ## 安装Visual Studio的注意事项
 
@@ -9,7 +9,7 @@ Windows下的Intel OneAPI往往是搭配最新版Visual Studio（简称，VS）�
 
 > 🔰 提示：实际上，VS搭配OneAPI是一对经典组合，稳定强劲。但我们仍推荐用户对Linux式（命令行式）编程有所浅尝，否则VS会极大地禁锢你的编程思维。
 
-Windows下使用OneAPI，不一定必须要与VS搭配，Intel官方正在组织开发VS Code的OneAPI插件，且[fortran-lang/fpm](https://github.com/fortran-lang/fpm)也支持OneAPI编译器，但对于新手和追求稳定性的用户还是推荐使用VS。
+Windows下使用OneAPI，不一定必须要与VS搭配，Intel官方正在组织开发VS Code的OneAPI插件（尚不成熟），且[fortran-lang/fpm](https://github.com/fortran-lang/fpm)也支持OneAPI编译器，但对于新手和追求稳定性的用户还是推荐使用VS。
 
 安装VS，要注意勾选以下4个组件⚙：
 ![注意事项](images/Visual-Studio.png)
@@ -21,6 +21,13 @@ Windows下使用OneAPI，不一定必须要与VS搭配，Intel官方正在组织
 1. 安装[最新版Visual Studio](https://visualstudio.microsoft.com/zh-hans/)；
 2. 安装[`Base Toolkit`](https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#base-kit)（3.71GB）；
 3. 安装[`HPC Toolkit`](https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#hpc-kit)（1.23GB）。
+
+此后我们就**可以开始专心编程、实现业务了**。<br>
+
+> 🔰 提示：<br>
+> 1. 快捷键`CTRL F5`是开始运行（不调试），`F5`是开始调试。<br>
+> 2. 进入菜单`工具>选项>文本编辑器>Fortran>Advanced`启用一些有用的Fortran IDE功能。<br>
+> 3. 记得了解一点动态、静态链接库的概念。
 
 ## 安装OneAPI的独立组件（第二种方案）
 
@@ -38,5 +45,5 @@ Windows下使用OneAPI，不一定必须要与VS搭配，Intel官方正在组织
 
 ## 其他链接
 
-- [地球屋老师：Fortran编译器及相关软件安装操作](https://www.bilibili.com/video/BV1oh411o7AT?p=2)
-- [地球屋老师：Windows系统下Fortran编程](https://www.bilibili.com/video/BV1XD4y1S7jz?spm_id_from=333.999.0.0)
+- [地球屋里老师：Fortran编译器及相关软件安装操作](https://www.bilibili.com/video/BV1oh411o7AT?p=2)
+- [地球屋里老师：Windows系统下Fortran编程](https://www.bilibili.com/video/BV1XD4y1S7jz?spm_id_from=333.999.0.0)
