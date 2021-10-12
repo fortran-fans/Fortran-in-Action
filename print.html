@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">1.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">1.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">1.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">1.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">1.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">1.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">1.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">1.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/allocatable-arrays.html"><strong aria-hidden="true">1.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">1.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">1.10.</strong> 回调函数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/type-casting.html"><strong aria-hidden="true">1.11.</strong> 类型转换</a></li></ol></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">2.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/use-GFortran-in-Windows.html"><strong aria-hidden="true">2.1.</strong> 在Windows系统下使用GFortran</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">1.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">1.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">1.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">1.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">1.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">1.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">1.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">1.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/allocatable-arrays.html"><strong aria-hidden="true">1.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">1.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">1.10.</strong> 回调函数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/type-casting.html"><strong aria-hidden="true">1.11.</strong> 类型转换</a></li></ol></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">2.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/Path-in-Windows.html"><strong aria-hidden="true">2.1.</strong> Windows系统的环境路径</a></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/use-GFortran-in-Windows.html"><strong aria-hidden="true">2.2.</strong> 在Windows系统下使用GFortran</a></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/use-OneAPI-in-Windows.html"><strong aria-hidden="true">2.3.</strong> 在Windows系统下使用OneAPI套件</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1188,9 +1188,28 @@ end module
 如果你对编程环境的稳定性需求很高，你可以前往<a href="http://www.equation.com/">equation.com</a>或者<a href="https://winlibs.com/">winlibs.com</a>（一些国外网站可能无法访问）下载固定版本号的Mingw-w64-GCC编程套件，
 或者使用<a href="https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html">Intel OneAPI</a>套件。<br>
 如果你对原生编程工具集有需求，或者Mingw环境出现了BUG，你可以试着安装<a href="https://docs.microsoft.com/zh-cn/windows/wsl/setup/environment">WSL2</a>。</p>
+<h2 id="intel-oneapi篇"><a class="header" href="#intel-oneapi篇">Intel OneAPI篇</a></h2>
+<p>Intel出品的OneAPI套件，性能强劲，且已经被免费提供了。适合对高性能、稳定性有需求的用户。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="windows系统的环境路径"><a class="header" href="#windows系统的环境路径">Windows系统的环境路径</a></h1>
+<p>在Windows下进行编程，往往离不开环境路径，它使得可执行程序可以被索引。<br>
+通过在键盘上按下<code>Win</code>键，再输入<code>path</code>可以快速启动“编辑系统环境变量”。</p>
+<p><img src="Fortran-Programming-in-Windows/images/Path.png" alt="环境变量" /></p>
+<h2 id="用户变量和系统变量"><a class="header" href="#用户变量和系统变量">用户变量和系统变量</a></h2>
+<p>一台计算机可以创建多个用户账户。<br>
+用户变量框内设置的环境变量只适用于计算机的当前账号；系统变量框内设置的环境变量将适用于该计算机的所有用户账号。</p>
+<h2 id="三类环境变量"><a class="header" href="#三类环境变量">三类环境变量</a></h2>
+<p>需要注意的是环境变量根据用途，主要可以分为三类：</p>
+<ol>
+<li><code>Path</code>：存储可执行程序的路径；</li>
+<li><code>OS</code>：值一般为<code>Windows_NT</code>，用以程序判断当前系统类型；</li>
+<li>其他环境变量。</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="在windows系统下使用gfortran"><a class="header" href="#在windows系统下使用gfortran">在Windows系统下使用GFortran</a></h1>
 <p>微软公司开发的Windows系统具有强大的图形用户界面🎨，是我们常用的操作系统。<br>
 GCC Fortran编译器，对Fortran新标准的支持非常及时，是一款免费🍻的开源软件。</p>
+<blockquote>
+<p>🔰 提示：以下教程，同样适用于在<strong>Visual Studio Code</strong>中使用Intel OneAPI（需要做出适应性改变：gfortran改为ifort）。安装OneAPI请参考<a href="Fortran-Programming-in-Windows/use-OneAPI-in-Windows.html#%E5%AE%89%E8%A3%85oneapi%E7%9A%84%E7%8B%AC%E7%AB%8B%E7%BB%84%E4%BB%B6%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%A1%88">安装OneAPI的独立组件（第二种方案）</a>。</p>
+</blockquote>
 <h2 id="使用msys2-gfortran"><a class="header" href="#使用msys2-gfortran">使用MSYS2-GFortran</a></h2>
 <p>可以将MSYS2简单地理解为一个包管理器，集成了<code>pacman</code>和<a href="https://sourceforge.net/projects/mingw/"><code>Mingw-w64</code></a>。</p>
 <h3 id="安装msys2软件"><a class="header" href="#安装msys2软件">安装MSYS2软件</a></h3>
@@ -1221,7 +1240,7 @@ gfortran --help              # 查询gfortran命令行参数的帮助文档
 C:/msys64/ucrt64/lib         # 可执行程序的动态链接库依赖所在路径
 </code></pre>
 <blockquote>
-<p>🔰 这里默认我们现在大多数使用的硬件是64位的，且使用较新的MSYS2环境（UCRT），有个性化需求可以进行自定义。</p>
+<p>🔰 提示：这里默认我们现在大多数使用的硬件是64位的，且使用较新的MSYS2环境（UCRT），有个性化需求可以进行自定义。</p>
 </blockquote>
 <h2 id="使用visul-studio-code编辑器进行编码"><a class="header" href="#使用visul-studio-code编辑器进行编码">使用Visul Studio Code编辑器进行编码</a></h2>
 <p><a href="https://code.visualstudio.com/">Visual Studio Code（简称，VS Code或code）</a>是一款由微软公司主导的免费开源、逐渐强大的代码编辑器软件。<br>
@@ -1254,6 +1273,9 @@ end subroutine add
 </blockquote>
 <h3 id="使用fpm构建fortran代码"><a class="header" href="#使用fpm构建fortran代码">使用FPM构建Fortran代码</a></h3>
 <p><a href="https://github.com/fortran-lang/fpm">Fortran Package Manager（FPM）</a>是Fortran-Lang组织主导、为Fortran语言专门定制开发的免费、开源的包管理器和构建系统。</p>
+<blockquote>
+<p>🔰 提示：fortran-lang/fpm不仅支持GFortran，还支持OneAPI和<a href="https://lfortran.org/">LFortran</a>等其他Fortran编译器。</p>
+</blockquote>
 <p>我们现在可以使用MSYS2软件来安装FPM，也可以前往<a href="https://github.com/fortran-lang/fpm">Fortran Package Manager (fpm) (github.com)</a>仓库手动编译出可执行程序FPM，届时务必阅读仓库提供的帮助文档<a href="https://github.com/fortran-lang/fpm#readme"><code>README.md</code></a>。别忘了将手动编译的FPM引入Windows软件的的环境路径🔗中，以方便我们使用它（fpm.exe）。</p>
 <pre><code class="language-sh">pacman -Ss fpm              # 查询名字中含“fpm”字符的包
 pacman -S ucrt64/mingw-w64-ucrt-x86_64-fpm  # 安装fpm软件
@@ -1340,6 +1362,51 @@ gfortran -g -fcheck=bounds -std=f2008 -Wall hello_world.f90
 <p>我们推荐使用FPM软件来构建代码，FPM默认会启用一些编译选项。例如，</p>
 <pre><code>-Wall -Wextra -Wimplicit-interface -fPIC -fmax-errors=1 -g -fcheck=bounds -fcoarray=single
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="在windows系统下使用oneapi套件"><a class="header" href="#在windows系统下使用oneapi套件">在Windows系统下使用OneAPI套件</a></h1>
+<p><a href="https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html">Intel OneAPI</a>为我们免费提供了两个版本的Fortran编译器，一个是经典的<code>ifort</code>，另一个是基于LLVM后端的<code>ifx</code>（尚处于beta版本），且拥有强大的MKL数学库，配套完善的开发测试组件，还有<a href="https://software.intel.com/content/www/us/en/develop/documentation/get-started-with-fortran-compiler/top/get-started-on-windows.html">丰富的帮助文档</a>📔。</p>
+<h2 id="安装visual-studio的注意事项"><a class="header" href="#安装visual-studio的注意事项">安装Visual Studio的注意事项</a></h2>
+<p>Windows下的Intel OneAPI往往是搭配最新版Visual Studio（简称，VS）使用，VS社区版是免费提供的。<br>
+如果担心以后参加工作，VS企业版需要付费使用，你可以尝试<a href="Fortran-Programming-in-Windows/use-GFortran-in-Windows.html">在VS Code中使用OneAPI或者GFortran</a>🍻。</p>
+<blockquote>
+<p>🔰 提示：实际上，VS搭配OneAPI是一对经典组合，稳定强劲。但我们仍推荐用户对Linux式（命令行式）编程有所浅尝，否则VS会极大地禁锢你的编程思维。</p>
+</blockquote>
+<p>Windows下使用OneAPI，不一定必须要与VS搭配，Intel官方正在组织开发VS Code的OneAPI插件（尚不成熟），且<a href="https://github.com/fortran-lang/fpm">fortran-lang/fpm</a>也支持OneAPI编译器，但对于新手和追求稳定性的用户还是推荐使用VS。</p>
+<p>安装VS，要注意勾选以下4个组件⚙：
+<img src="Fortran-Programming-in-Windows/images/Visual-Studio.png" alt="注意事项" /></p>
+<h2 id="安装base-toolkit和hpc-toolkit"><a class="header" href="#安装base-toolkit和hpc-toolkit">安装<code>Base Toolkit</code>和<code>HPC Toolkit</code></a></h2>
+<p>对于新手用户，非常保守和默认的做法是安装<code>OneAPI Base Toolkit</code>和<code>OneAPI HPC Toolkit</code>，安装的时候稍微注意一下，是否在OneAPI安装过程中、与VS集成时出现惊叹号，这可能是因为你未完全安装以上图示4个VS组件：</p>
+<ol>
+<li>安装<a href="https://visualstudio.microsoft.com/zh-hans/">最新版Visual Studio</a>；</li>
+<li>安装<a href="https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#base-kit"><code>Base Toolkit</code></a>（3.71GB）；</li>
+<li>安装<a href="https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#hpc-kit"><code>HPC Toolkit</code></a>（1.23GB）。</li>
+</ol>
+<p>此后我们就<strong>可以开始专心编程、实现业务了</strong>。<br></p>
+<blockquote>
+<p>🔰 提示：<br></p>
+<ol>
+<li>快捷键<code>CTRL F5</code>是开始运行（不调试），<code>F5</code>是开始调试。<br></li>
+<li>进入菜单<code>工具&gt;选项&gt;文本编辑器&gt;Fortran&gt;Advanced</code>启用一些有用的Fortran IDE功能。<br></li>
+<li>记得了解一点动态、静态链接库的概念。</li>
+</ol>
+</blockquote>
+<h2 id="安装oneapi的独立组件第二种方案"><a class="header" href="#安装oneapi的独立组件第二种方案">安装OneAPI的独立组件（第二种方案）</a></h2>
+<p>通过安装<code>Base Toolkit</code>和<code>HPC Toolkit</code>，细心的话能发现，其中OneAPI套件包含了很多我们Fortran编程用不到的一些组件，占用了我们较多的电脑存储。<br>
+且我们发现用户安装OneAPI的<code>Base Toolkit</code>和<code>HPC Toolkit</code>，会导致编程概念的模糊🧿：编码时，编译时，运行时，链接库等概念。<br>
+所以我们引出<strong>第二种安装OneAPI的方式，组件化、轻量化安装</strong>，这往往适合极客、爱好者和家庭作业需求的学生。</p>
+<p>前往OneAPI的网页（<a href="https://software.intel.com/content/www/us/en/develop/articles/oneapi-standalone-components.html">Single Component Downloads and Runtime Versions</a>）进行下载你所需要的组件，以OneAPI 2021.4发行版为例，我们推荐以下组件：</p>
+<ol>
+<li><a href="https://registrationcenter-download.intel.com/akdlm/irc_nas/18215/w_ifort_runtime_p_2021.4.0.3556.exe">OneAPI Fortran运行时</a>（30.6MB）；</li>
+<li><a href="https://registrationcenter-download.intel.com/akdlm/irc_nas/18215/w_fortran-compiler_p_2021.4.0.3208_offline.exe">OneAPI Fortran编译器</a>（603.65MB）；</li>
+<li><a href="https://registrationcenter-download.intel.com/akdlm/irc_nas/18230/w_onemkl_p_2021.4.0.640_offline.exe">OneAPI MKL数学库</a>（1.22GB）（可选）。</li>
+</ol>
+<blockquote>
+<p>🔰 提示：OneAPI中有Intel实现的Python解释器，它的性能比Python官方提供的编译器更强，如果有Python编程的需要，可以试一试。</p>
+</blockquote>
+<h2 id="其他链接"><a class="header" href="#其他链接">其他链接</a></h2>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1oh411o7AT?p=2">地球屋里老师：Fortran编译器及相关软件安装操作</a></li>
+<li><a href="https://www.bilibili.com/video/BV1XD4y1S7jz?spm_id_from=333.999.0.0">地球屋里老师：Windows系统下Fortran编程</a></li>
+</ul>
 
                     </main>
 
