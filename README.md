@@ -1,7 +1,7 @@
 # Fortran语言编程
 
 [![MIT](https://img.shields.io/github/license/fortran-fans/mdbook-test?color=pink)](LICENSE)
-[![Actions Status](https://github.com/fortran-fans/mdbook-test/workflows/doc-deployment/badge.svg)](https://github.com/fortran-fans/mdbook-test/actions)
+[![Actions Status](https://github.com/fortran-fans/mdbook-test/workflows/mdbook/badge.svg)](https://github.com/fortran-fans/mdbook-test/actions)
 
 《Fortran语言编程》（暂定名）是一份由Fortran爱好者（Fortran-Fans）社区驱动的Fortran语言编程教程。
 
