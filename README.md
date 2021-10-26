@@ -1,15 +1,15 @@
-# Fortran语言编程
+# Fortran语言实战
 
-[![MIT](https://img.shields.io/github/license/fortran-fans/mdbook-test?color=pink)](LICENSE)
-[![Actions Status](https://github.com/fortran-fans/mdbook-test/workflows/mdbook/badge.svg)](https://github.com/fortran-fans/mdbook-test/actions)
+[![MIT](https://img.shields.io/github/license/fortran-fans/Fortran-in-Action?color=pink)](LICENSE)
+[![Actions Status](https://github.com/fortran-fans/Fortran-in-Action/workflows/mdbook/badge.svg)](https://github.com/fortran-fans/Fortran-in-Action/actions)
 
-《Fortran语言编程》（暂定名）是一份由Fortran爱好者（Fortran-Fans）社区驱动的Fortran语言编程教程。
+《Fortran语言实战》是一份由Fortran爱好者（Fortran-Fans）社区驱动的Fortran语言编程实战教程。
 
 |项目|描述|
 |:-:|:-:|
 |版本：|0.0.1|
 |作者：|Fortran爱好者（Fortran-Fans）|
-|网页：|https://fortran-fans.github.io/mdbook-test/|
+|网页：|https://fortran-fans.github.io/Fortran-in-Action/|
 |版权：|Copyright (c) 2021 Fortran-Fans|
 
 ## 开始
@@ -23,14 +23,14 @@
 ### 获取代码
 
 ```sh
-git clone https://github.com/fortran-fans/mdbook-test.git
-cd mdbook-test
+git clone https://github.com/fortran-fans/Fortran-in-Action.git
+cd Fortran-in-Action
 ```
 
 ### 使用[mdbook](https://github.com/rust-lang/mdBook)构建文档
 
 mdBook是一个从Markdown文件创建现代在线书籍的实用程序。<br>
-你可以通过提供的`book.toml`文件来构建《Fortran语言编程》。
+你可以通过提供的`book.toml`文件来构建《Fortran语言实战》。
 
 ```
 mdbook build
