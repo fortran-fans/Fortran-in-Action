@@ -1,4 +1,4 @@
-# 在Windows系统下使用GFortran
+# 使用GFortran
 
 微软公司开发的Windows系统具有强大的图形用户界面🎨，是我们常用的操作系统。<br>
 GCC Fortran编译器，对Fortran新标准的支持非常及时，是一款免费🍻的开源软件。

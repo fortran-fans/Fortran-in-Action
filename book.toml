@@ -3,8 +3,8 @@ authors = ["St Maxwell", "Euler-37", "zoziha"]
 language = "zh"
 multilingual = false
 src = "src"
-title = "fortran-best-practices"
+title = "Fortran语言实战"
 
 [output.html]
-git-repository-url = "https://github.com/fortran-fans/mdbook-test/tree/main/"
-edit-url-template = "https://github.com/fortran-fans/mdbook-test/edit/main/{path}"
+git-repository-url = "https://github.com/fortran-fans/Fortran-in-Action/tree/main/"
+edit-url-template = "https://github.com/fortran-fans/Fortran-in-Action/edit/main/{path}"
