@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">2.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">2.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">2.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">2.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">2.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">2.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">2.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">2.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/allocatable-arrays.html"><strong aria-hidden="true">2.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">2.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">2.10.</strong> 回调函数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/type-casting.html"><strong aria-hidden="true">2.11.</strong> 类型转换</a></li></ol></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">3.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/Path-in-Windows.html"><strong aria-hidden="true">3.1.</strong> 环境路径</a></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/use-GFortran-in-Windows.html"><strong aria-hidden="true">3.2.</strong> 使用GFortran</a></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/use-OneAPI-in-Windows.html"><strong aria-hidden="true">3.3.</strong> 使用OneAPI套件</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">2.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">2.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">2.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">2.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">2.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">2.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">2.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">2.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/allocatable-arrays.html"><strong aria-hidden="true">2.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">2.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">2.10.</strong> 回调函数</a></li><li class="chapter-item expanded "><a href="Fortran-Best-Practices/type-casting.html"><strong aria-hidden="true">2.11.</strong> 类型转换</a></li></ol></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">3.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/Path-in-Windows.html"><strong aria-hidden="true">3.1.</strong> 环境路径</a></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/use-GFortran-in-Windows.html"><strong aria-hidden="true">3.2.</strong> 使用GFortran</a></li><li class="chapter-item expanded "><a href="Fortran-Programming-in-Windows/use-OneAPI-in-Windows.html"><strong aria-hidden="true">3.3.</strong> 使用OneAPI套件</a></li></ol></li><li class="chapter-item expanded "><a href="Using-Open-Source-Code/index.html"><strong aria-hidden="true">4.</strong> 拥抱开源，高效使用现代Fortran</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Using-Open-Source-Code/Project-Configuration-TOML-F.html"><strong aria-hidden="true">4.1.</strong> 为程序设置配置文件：TOML</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -1465,6 +1465,99 @@ gfortran -g -fcheck=bounds -std=f2008 -Wall hello_world.f90
 <ul>
 <li><a href="https://www.bilibili.com/video/BV1oh411o7AT?p=2">地球屋里老师：Fortran编译器及相关软件安装操作</a></li>
 <li><a href="https://www.bilibili.com/video/BV1XD4y1S7jz?spm_id_from=333.999.0.0">地球屋里老师：Windows系统下Fortran编程</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="拥抱开源高效使用现代fortran"><a class="header" href="#拥抱开源高效使用现代fortran">拥抱开源，高效使用现代Fortran</a></h1>
+<h2 id="使用开源"><a class="header" href="#使用开源">使用开源</a></h2>
+<p>个人的能力是有限的，重复设计车轮子也是不合理的，所以我们可以大胆地拥抱开源代码，开源代码来自开源开发者，<strong>为更多的开发者赋能</strong>。</p>
+<p>开源代码是<strong>免费获取</strong>的，但它们一般是<strong>有版权的</strong>，本教程倾向于介绍<strong>宽松开源许可证</strong>的开源代码，这对用户来说是友好型的。</p>
+<p>希望读者注意<strong>养成遵循开源许可证的习惯</strong>，这是促成开源代码繁荣的正确路径——尊重别人的劳动，别人尊重我的劳动，开源的事大家一起解决。</p>
+<ul>
+<li><a href="https://opensource.org/licenses">开源倡议</a></li>
+</ul>
+<h2 id="工业化代码生产"><a class="header" href="#工业化代码生产">工业化代码生产</a></h2>
+<p>如果我们做的不是个人项目，是正规的项目，比如商业开发。不慎重地、无限制地引入开源代码或者整个仓库的代码是会造成很大的开发负担的，所以请慎重地思考你的需求。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="为程序设置配置文件toml"><a class="header" href="#为程序设置配置文件toml">为程序设置配置文件：TOML</a></h1>
+<p>TOML官网🎯：<a href="https://toml.io/cn/">https://toml.io/cn/</a><br>
+TOML-F仓库（许可证：Apache License v2或者MIT License）：<a href="https://github.com/toml-f/toml-f">https://github.com/toml-f/toml-f</a></p>
+<p>TOML（Tom的（语义）明显、（配置）最小化的语言）主要被设计为程序的配置文件，简单易用，典型地被fpm、cargo、julia作为代码包的配置文件。<br>
+TOML也可被用作有限制性的、数据序列化的数据存储文件。</p>
+<p><code>toml-f</code>是Fortran语言的TOML解析实现，我们可以使用它作为Fortran程序的配置文件。</p>
+<div align="center">
+<img src="https://github.com/toml-f/toml-f/raw/main/assets/toml-f.png" alt="TOML-Fortran" width="220">
+</div>
+<h2 id="开始-1"><a class="header" href="#开始-1">开始</a></h2>
+<h3 id="软件依赖-1"><a class="header" href="#软件依赖-1">软件依赖</a></h3>
+<ul>
+<li>Git</li>
+<li><a href="https://github.com/fortran-lang/fpm">fortran-lang/fpm</a></li>
+</ul>
+<h3 id="获取代码-1"><a class="header" href="#获取代码-1">获取代码</a></h3>
+<p>可以前往<code>toml-f</code>仓库下载仓库压缩包，也可以使用Git克隆仓库。</p>
+<pre><code class="language-sh">git clone https://github.com/toml-f/toml-f.git
+cd toml-f
+</code></pre>
+<h3 id="使用a-hrefhttpsgithubcomfortran-langfpmfortran-langfpma构建代码"><a class="header" href="#使用a-hrefhttpsgithubcomfortran-langfpmfortran-langfpma构建代码">使用<a href="https://github.com/fortran-lang/fpm">fortran-lang/fpm</a>构建代码</a></h3>
+<p>Fortran包管理器（fpm）是Fortran-lang社区驱动、为Fortran生态设计的包管理器和代码构建器。<br>
+你可以通过提供的<code>fpm.toml</code>构建代码：</p>
+<pre><code class="language-sh">fpm build
+</code></pre>
+<p>可以在你的fpm工程的<code>fpm.toml</code>文件中添加以下语句，以使用<code>toml-f</code>：</p>
+<pre><code class="language-toml">[dependencies]
+toml-f = { git=&quot;https://github.com/toml-f/toml-f.git&quot; }
+</code></pre>
+<h2 id="使用toml-f"><a class="header" href="#使用toml-f">使用<code>toml-f</code></a></h2>
+<p><code>toml-f</code>的API可以在<a href="https://toml-f.github.io/toml-f/"><code>https://toml-f.github.io/toml-f/</code></a>找到，也可以直接阅读源码，非常推荐阅读它的<a href="https://github.com/toml-f/toml-f/tree/main/test/tftest">单元测试源码</a>，里面有着很全的API使用。</p>
+<p>你可以模仿<code>fpm.toml</code>中toml的写法，或者去<a href="https://toml.io/cn/">TOML官网</a>查阅toml语法。</p>
+<pre><code class="language-fortran">module tomlf
+    public :: get_value, set_value
+    public :: toml_parse
+    public :: toml_error, toml_stat
+    public :: toml_serializer
+    public :: toml_table, toml_array, toml_key, is_array_of_tables, new_table, add_table, add_array, len
+    public :: sort
+    public :: tomlf_version_string, tomlf_version_compact, get_tomlf_version
+end module tomlf
+</code></pre>
+<h3 id="读取toml"><a class="header" href="#读取toml">读取<code>toml</code></a></h3>
+<p>在<code>toml-f</code>仓库的<a href="https://github.com/toml-f/toml-f#usage">README.md中</a>🕹提供了一个简单的示例。</p>
+<h4 id="toml_parse解析toml"><a class="header" href="#toml_parse解析toml"><code>toml_parse</code>：解析<code>toml</code></a></h4>
+<p>从字符串或者文件单元号读取toml信息，这是解析toml内容的第一步。</p>
+<pre><code class="language-fortran">call toml_parse(table, in [, error])
+</code></pre>
+<p><code>table</code>：<code>toml_table</code>类型，<code>intent(out)</code>。
+toml表格实例。</p>
+<p><code>in</code>：<code>integer</code>或者<code>character(:), allocatable</code>类型，<code>intent(in)</code>。
+控制从文件单元号，或字符串中读取toml信息。</p>
+<p><code>error</code>：<code>toml_error</code>类型，<code>intent(out)</code>和<code>optional</code>。</p>
+<h4 id="get_value读取变量"><a class="header" href="#get_value读取变量"><code>get_value</code>：读取变量</a></h4>
+<p>从toml表格中读取键的值。</p>
+<pre><code class="language-fortran">call get_value(table [, pos], ptr [, requested/default, stat])
+</code></pre>
+<p><code>table</code>：<code>toml_table/toml_array/toml_keyval</code>类型，<code>intent(inout)</code>。
+toml表格实例/数组指针/键值指针。</p>
+<p><code>pos</code>：<code>toml_array/toml_key/integer</code>类型，<code>intent(in)</code>。
+toml表格中的位置。</p>
+<p><code>ptr</code>：<code>toml_table/toml_array/toml_keyval, pointer</code>或者<code>real/integer/logical/character(:), allocatable</code>类型，<code>intent(out)</code>。
+变量的值，或者子表格的指针。</p>
+<p><code>requested</code>：<code>logical</code>类型，<code>intent(in)</code>和<code>optional</code>。
+是否请求在toml表格中添加默认值。</p>
+<p><code>default</code>：<code>real/integer/logical/character(*)</code>类型，<code>intent(in)</code>。
+读取toml信息时，信息不存在，预设的默认值。</p>
+<p><code>stat</code>：<code>integer</code>类型，<code>intent(out)</code>和<code>optional</code>。
+返回<code>0</code>为成功。</p>
+<h4 id="destory析构toml缓存"><a class="header" href="#destory析构toml缓存"><code>destory</code>：析构<code>toml</code>缓存</a></h4>
+<p>在读取完toml信息，我们<strong>可选地</strong>析构<code>toml_table</code>内的内容。</p>
+<pre><code class="language-fortran">call table%destory()
+</code></pre>
+<p><code>table</code>：<code>toml_table</code>类型。</p>
+<h3 id="说明"><a class="header" href="#说明">说明</a></h3>
+<p>我们常先学习如何使用<code>toml-f</code>解析读取toml信息，在此过程中，我们逐渐熟悉其API的使用，读者如果有输出toml的需求，很容易理解使用<code>toml-f</code>写入toml。</p>
+<p>需要注意的有两点：</p>
+<ul>
+<li><code>toml</code>与<code>json</code>的转换在<a href="https://github.com/toml-f/toml-f/tree/main/test"><code>toml-f</code>的单元测试</a>中提供了代码。<br>
+<code>json-fortran</code>（许可证：类似BSD）：<a href="https://github.com/jacobwilliams/json-fortran">https://github.com/jacobwilliams/json-fortran</a></li>
+<li>从toml文件中尝试解析不存在的键值对，<code>toml-f</code>不认为是错误，所以请读取变量的设置默认值。</li>
+<li>在手动设置<code>.toml</code>内容时，注意整型和浮点型的区别，<code>x = 1</code>中<code>x</code>始终被认为是整型，<code>x = 1.0</code>中<code>x</code>才是浮点型，这点往往会被忽视。</li>
 </ul>
 
                     </main>
