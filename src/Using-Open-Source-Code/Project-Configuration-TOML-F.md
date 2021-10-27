@@ -1,6 +1,6 @@
 # 为程序设置配置文件：TOML
 
-TOML官网：[https://toml.io/cn/](https://toml.io/cn/)<br>
+TOML官网🎯：[https://toml.io/cn/](https://toml.io/cn/)<br>
 TOML-F仓库（许可证：Apache License v2或者MIT License）：[https://github.com/toml-f/toml-f](https://github.com/toml-f/toml-f)
 
 TOML（Tom的（语义）明显、（配置）最小化的语言）主要被设计为程序的配置文件，简单易用，典型地被fpm、cargo、julia作为代码包的配置文件。<br>
@@ -8,7 +8,9 @@ TOML也可被用作有限制性的、数据序列化的数据存储文件。
 
 `toml-f`是Fortran语言的TOML解析实现，我们可以使用它作为Fortran程序的配置文件。
 
-![toml-f](https://github.com/toml-f/toml-f/blob/main/assets/toml-f.png)
+<div align="center">
+<img src="https://github.com/toml-f/toml-f/raw/main/assets/toml-f.png" alt="TOML-Fortran" width="220">
+</div>
 
 ## 开始
 
@@ -62,7 +64,7 @@ end module tomlf
 
 ### 读取`toml`
 
-在`toml-f`仓库的[README.md中](https://github.com/toml-f/toml-f#usage)提供了一个简单的示例。
+在`toml-f`仓库的[README.md中](https://github.com/toml-f/toml-f#usage)🕹提供了一个简单的示例。
 
 #### `toml_parse`：解析`toml`
 
@@ -73,7 +75,7 @@ call toml_parse(table, in [, error])
 ```
 
 `table`：`toml_table`类型，`intent(out)`。
-toml数组实例。
+toml表格实例。
 
 `in`：`integer`或者`character(:), allocatable`类型，`intent(in)`。
 控制从文件单元号，或字符串中读取toml信息。
@@ -82,7 +84,7 @@ toml数组实例。
 
 #### `get_value`：读取变量
 
-从toml数组中读取键的值。
+从toml表格中读取键的值。
 
 ```fortran
 call get_value(table [, pos], ptr [, requested/default, stat])
