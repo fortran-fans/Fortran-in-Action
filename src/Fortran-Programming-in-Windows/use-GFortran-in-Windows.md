@@ -69,6 +69,7 @@ C:/msys64/ucrt64/lib         # 可执行程序的动态链接库依赖所在路�
 + Modern Fortran
 + Fortran IntelliSense
 + GDB Debugger - Beyond
++ Copilot (可选)
 + VSCode Great Icons (可选)
 + Better TOML (可选)
 ```
@@ -121,6 +122,8 @@ code .                      # 使用VS Code打开当前文件夹
 ```
 
 <img src="images/hello_world-in-code.png" alt="使用VS Code编辑hello_world项目" style="zoom:75%;" />
+
+> 🔰 提示：`fpm build`类似Visual Studio的Debug模式，`fpm build --profile release`类似Visual Studio的Release模式。
 
 作为用户，我们可以阅读🔍[`Packaging with fpm`](https://fpm.fortran-lang.org/page/Packaging.html)和[`Manifest reference`](https://fpm.fortran-lang.org/page/Manifest.html)；如果我们想成为FPM的贡献者和开发者，阅读[FPM开发者文档](https://fpm.fortran-lang.org/index.html#fortran-package-manager-developer-documentation)将是有帮助的。
 
