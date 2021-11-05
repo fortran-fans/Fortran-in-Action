@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 297 210"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="openblas-source.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.0746575"
+     inkscape:cx="413.62016"
+     inkscape:cy="409.43278"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="图层 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g2244"
+       transform="translate(0,-0.54332365)">
+      <rect
+         style="fill:none;stroke:#00b0fe;stroke-width:2.11667;stroke-linejoin:round;stroke-opacity:0.905812"
+         id="rect894"
+         width="25.417349"
+         height="40.041031"
+         x="52.227432"
+         y="75.555679"
+         rx="0"
+         ry="0" />
+      <rect
+         style="fill:#ffffff;stroke:#fffffe;stroke-width:2.11667;stroke-linejoin:round;stroke-opacity:0.905812"
+         id="rect1812"
+         width="16.625732"
+         height="50.747654"
+         x="56.579716"
+         y="70.942261" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="59.047092"
+       y="107.97775"
+       id="text3160-4"><tspan
+         sodipodi:role="line"
+         id="tspan3158-8"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';fill:#ff00ff;stroke-width:0.264583"
+         x="59.047092"
+         y="107.97775">BL</tspan></text>
+    <g
+       id="g2244-3"
+       transform="translate(51.763868,-0.54332365)">
+      <rect
+         style="fill:none;stroke:#00b0fe;stroke-width:2.11667;stroke-linejoin:round;stroke-opacity:0.905812"
+         id="rect894-1"
+         width="25.417349"
+         height="40.041031"
+         x="52.227432"
+         y="75.555679"
+         rx="0"
+         ry="0" />
+      <rect
+         style="fill:#ffffff;stroke:#fffffe;stroke-width:2.11667;stroke-linejoin:round;stroke-opacity:0.905812"
+         id="rect1812-7"
+         width="16.625732"
+         height="50.747654"
+         x="56.579716"
+         y="70.942261" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="58.287453"
+       y="87.894287"
+       id="text3160"><tspan
+         sodipodi:role="line"
+         id="tspan3158"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';fill:#0000ff;stroke-width:0.264583"
+         x="58.287453"
+         y="87.894287">Op</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="111.36536"
+       y="107.97775"
+       id="text3160-4-8"><tspan
+         sodipodi:role="line"
+         id="tspan3158-8-5"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';fill:#ff00ff;stroke-width:0.264583"
+         x="111.36536"
+         y="107.97775">AS</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="112.26194"
+       y="87.71859"
+       id="text3160-8"><tspan
+         sodipodi:role="line"
+         id="tspan3158-7"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';fill:#0000ff;stroke-width:0.264583"
+         x="112.26194"
+         y="87.71859">en</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;-inkscape-font-specification:'sans-serif, Bold';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="86.90947"
+       y="98.973396"
+       id="text9630"><tspan
+         sodipodi:role="line"
+         id="tspan9628"
+         style="stroke-width:0.264583;-inkscape-font-specification:'sans-serif, Bold';font-family:sans-serif;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;font-size:10.58330002px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="86.90947"
+         y="98.973396">×</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:'Times New Roman';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;-inkscape-font-specification:'Times New Roman, Italic';font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="81.258659"
+       y="77.924713"
+       id="text9630-4"><tspan
+         sodipodi:role="line"
+         id="tspan9628-5"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58330002px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
+         x="81.258659"
+         y="77.924713">T</tspan></text>
+  </g>
+</svg>

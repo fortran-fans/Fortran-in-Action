@@ -96,7 +96,7 @@ toml表格实例/数组指针/键值指针。
 `pos`：`toml_array/toml_key/integer`类型，`intent(in)`。
 toml表格中的位置。
 
-`ptr`：`toml_table/toml_array/toml_keyval, pointer`或者`real/integer/logical/character(:), allocatable`类型，`intent(out)`。
+`ptr`：`toml_table/toml_array/toml_keyval`和`pointer`或者`real/integer/logical/character(:), allocatable`类型，`intent(out)`。
 变量的值，或者子表格的指针。
 
 `requested`：`logical`类型，`intent(in)`和`optional`。
