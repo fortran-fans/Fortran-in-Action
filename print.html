@@ -1490,75 +1490,146 @@ TOML-F仓库（许可证：Apache License v2或者MIT License）：<a href="http
 TOML也可被用作有限制性的、数据序列化的数据存储文件。</p>
 <p><code>toml-f</code>是Fortran语言的TOML解析实现，我们可以使用它作为Fortran程序的配置文件。</p>
 <div align="center">
-<img src="https://github.com/toml-f/toml-f/raw/main/assets/toml-f.png" alt="TOML-Fortran" width="220">
+<img src="Using-Open-Source-Code/media/toml-f-logo.png" alt="TOML-Fortran" width="150">
 </div>
-<h2 id="开始-1"><a class="header" href="#开始-1">开始</a></h2>
-<h3 id="软件依赖-1"><a class="header" href="#软件依赖-1">软件依赖</a></h3>
-<ul>
-<li>Git</li>
-<li><a href="https://github.com/fortran-lang/fpm">fortran-lang/fpm</a></li>
-</ul>
-<h3 id="获取代码-1"><a class="header" href="#获取代码-1">获取代码</a></h3>
-<p>可以前往<code>toml-f</code>仓库下载仓库压缩包，也可以使用Git克隆仓库。</p>
-<pre><code class="language-sh">git clone https://github.com/toml-f/toml-f.git
-cd toml-f
-</code></pre>
-<h3 id="使用a-hrefhttpsgithubcomfortran-langfpmfortran-langfpma构建代码"><a class="header" href="#使用a-hrefhttpsgithubcomfortran-langfpmfortran-langfpma构建代码">使用<a href="https://github.com/fortran-lang/fpm">fortran-lang/fpm</a>构建代码</a></h3>
-<p>Fortran包管理器（fpm）是Fortran-lang社区驱动、为Fortran生态设计的包管理器和代码构建器。<br>
-你可以通过提供的<code>fpm.toml</code>构建代码：</p>
-<pre><code class="language-sh">fpm build
-</code></pre>
-<p>可以在你的fpm工程的<code>fpm.toml</code>文件中添加以下语句，以使用<code>toml-f</code>：</p>
-<pre><code class="language-toml">[dependencies]
-toml-f = { git=&quot;https://github.com/toml-f/toml-f.git&quot; }
-</code></pre>
-<h2 id="使用toml-f"><a class="header" href="#使用toml-f">使用<code>toml-f</code></a></h2>
-<p><code>toml-f</code>的API可以在<a href="https://toml-f.github.io/toml-f/"><code>https://toml-f.github.io/toml-f/</code></a>找到，也可以直接阅读源码，非常推荐阅读它的<a href="https://github.com/toml-f/toml-f/tree/main/test/tftest">单元测试源码</a>，里面有着很全的API使用。</p>
-<p>你可以模仿<code>fpm.toml</code>中toml的写法，或者去<a href="https://toml.io/cn/">TOML官网</a>查阅toml语法。</p>
-<pre><code class="language-fortran">module tomlf
-    public :: get_value, set_value
-    public :: toml_parse
-    public :: toml_error, toml_stat
-    public :: toml_serializer
-    public :: toml_table, toml_array, toml_key, is_array_of_tables, new_table, add_table, add_array, len
-    public :: sort
-    public :: tomlf_version_string, tomlf_version_compact, get_tomlf_version
-end module tomlf
-</code></pre>
-<h3 id="读取toml"><a class="header" href="#读取toml">读取<code>toml</code></a></h3>
-<p>在<code>toml-f</code>仓库的<a href="https://github.com/toml-f/toml-f#usage">README.md中</a>🕹提供了一个简单的示例。</p>
-<h4 id="toml_parse解析toml"><a class="header" href="#toml_parse解析toml"><code>toml_parse</code>：解析<code>toml</code></a></h4>
-<p>从字符串或者文件单元号读取toml信息，这是解析toml内容的第一步。</p>
+<h2 id="toml-f读取toml的api"><a class="header" href="#toml-f读取toml的api"><code>toml-f</code>读取toml的API</a></h2>
+<p>在演示<code>toml-f</code>示例之前，我们来熟悉一（亿）下<code>toml-f</code>的API😎。</p>
+<h3 id="toml_parse解析toml"><a class="header" href="#toml_parse解析toml"><code>toml_parse</code>：解析<code>toml</code></a></h3>
+<p>从字符串（<code>character(:), allocatable</code>）或者文件单元号（<code>unit</code>）读取toml信息，这是解析toml内容的第一步。</p>
 <pre><code class="language-fortran">call toml_parse(table, in [, error])
 </code></pre>
-<p><code>table</code>：<code>toml_table</code>类型，<code>intent(out)</code>。
-toml表格实例。</p>
-<p><code>in</code>：<code>integer</code>或者<code>character(:), allocatable</code>类型，<code>intent(in)</code>。
-控制从文件单元号，或字符串中读取toml信息。</p>
-<p><code>error</code>：<code>toml_error</code>类型，<code>intent(out)</code>和<code>optional</code>。</p>
-<h4 id="get_value读取变量"><a class="header" href="#get_value读取变量"><code>get_value</code>：读取变量</a></h4>
-<p>从toml表格中读取键的值。</p>
+<table><thead><tr><th>变量</th><th>类型</th><th>意义</th></tr></thead><tbody>
+<tr><td><code>table</code></td><td><code>toml_table</code>类型，<code>allocatable</code>和<code>intent(out)</code></td><td>toml表格实例</td></tr>
+<tr><td><code>in</code></td><td><code>integer</code>或者<code>character(:), allocatable</code>类型，<code>intent(in)</code></td><td>控制从文件单元号，或字符串中读取toml信息</td></tr>
+<tr><td><code>error</code></td><td><code>toml_error</code>类型，<code>intent(out)</code>和<code>optional</code></td><td>错误提示</td></tr>
+</tbody></table>
+<h3 id="get_value读取变量的值"><a class="header" href="#get_value读取变量的值"><code>get_value</code>：读取变量的值</a></h3>
+<p>从toml表格中读取确定键（key）的值（value）。</p>
 <pre><code class="language-fortran">call get_value(table [, pos], ptr [, requested/default, stat])
 </code></pre>
-<p><code>table</code>：<code>toml_table/toml_array/toml_keyval</code>类型，<code>intent(inout)</code>。
-toml表格实例/数组指针/键值指针。</p>
-<p><code>pos</code>：<code>toml_array/toml_key/integer</code>类型，<code>intent(in)</code>。
-toml表格中的位置。</p>
-<p><code>ptr</code>：<code>toml_table/toml_array/toml_keyval</code>和<code>pointer</code>或者<code>real/integer/logical/character(:), allocatable</code>类型，<code>intent(out)</code>。
-变量的值，或者子表格的指针。</p>
-<p><code>requested</code>：<code>logical</code>类型，<code>intent(in)</code>和<code>optional</code>。
-是否请求在toml表格中添加默认值。</p>
-<p><code>default</code>：<code>real/integer/logical/character(*)</code>类型，<code>intent(in)</code>。
-读取toml信息时，信息不存在，预设的默认值。</p>
-<p><code>stat</code>：<code>integer</code>类型，<code>intent(out)</code>和<code>optional</code>。
-返回<code>0</code>为成功。</p>
-<h4 id="destory析构toml缓存"><a class="header" href="#destory析构toml缓存"><code>destory</code>：析构<code>toml</code>缓存</a></h4>
+<table><thead><tr><th>变量</th><th>类型</th><th>意义</th></tr></thead><tbody>
+<tr><td><code>table</code></td><td><code>toml_table/toml_array/toml_keyval</code>类型，<code>intent(inout)</code></td><td>toml表格实例/数组指针/键值指针</td></tr>
+<tr><td><code>pos</code></td><td><code>toml_array/toml_key/integer</code>类型，<code>intent(in)</code></td><td>toml表格中的位置</td></tr>
+<tr><td><code>ptr</code></td><td><code>integer</code>或者<code>character(:), allocatable</code>类型，<code>intent(in)</code></td><td>变量的值，或者子表格的指针</td></tr>
+<tr><td><code>requested</code></td><td><code>logical</code>类型，<code>intent(in)</code>和<code>optional</code></td><td>是否请求在toml表格中添加默认值</td></tr>
+<tr><td><code>default</code></td><td><code>real/integer/logical/character(*)</code>类型，<code>intent(in)</code></td><td>读取toml信息时，信息不存在，预设的默认值</td></tr>
+<tr><td><code>stat</code></td><td><code>integer</code>类型，<code>intent(out)</code>和<code>optional</code></td><td>返回<code>0</code>为成功</td></tr>
+</tbody></table>
+<h3 id="destory析构toml缓存可忽略"><a class="header" href="#destory析构toml缓存可忽略"><code>destory</code>：析构<code>toml</code>缓存（可忽略）</a></h3>
 <p>在读取完toml信息，我们<strong>可选地</strong>析构<code>toml_table</code>内的内容。</p>
 <pre><code class="language-fortran">call table%destory()
 </code></pre>
-<p><code>table</code>：<code>toml_table</code>类型。</p>
-<h3 id="说明"><a class="header" href="#说明">说明</a></h3>
-<p>我们常先学习如何使用<code>toml-f</code>解析读取toml信息，在此过程中，我们逐渐熟悉其API的使用，读者如果有输出toml的需求，很容易理解使用<code>toml-f</code>写入toml。</p>
+<table><thead><tr><th>变量</th><th>类型</th><th>意义</th></tr></thead><tbody>
+<tr><td><code>table</code></td><td><code>toml_table</code>类型</td><td>toml表格实例</td></tr>
+</tbody></table>
+<blockquote>
+<p>🔰 除非你在某个<code>module</code>内声明了一个<code>module</code>内的全局<code>toml_table</code>，要节约内存，否则，<strong>这个析构例程请大胆地忽略它</strong>。
+因为在单元例程中的<code>toml_table</code>类型变量在例程结束后，就会结束其生命周期。</p>
+</blockquote>
+<h2 id="演示toml-f库的读取功能"><a class="header" href="#演示toml-f库的读取功能">演示<code>toml-f</code>库的读取功能</a></h2>
+<pre><code class="language-sh">cd workspace  # 切换到你常用的工作区间
+fpm new --app toml-demo  # 创建fpm项目
+cd toml-demo &amp;&amp; code .   # 切换到`toml-demo`文件夹，并使用vs code打开它
+</code></pre>
+<p>我们创建了一个<code>toml-demo</code>工程，使用vs code打开了它，我们可以在fpm工程的<code>fpm.toml</code>文件中添加以下语句，以使用<code>toml-f</code>：</p>
+<pre><code class="language-toml">[dependencies]
+toml-f = { git=&quot;https://github.com/toml-f/toml-f.git&quot; }
+</code></pre>
+<p>在<code>toml-f</code>仓库的<a href="https://github.com/toml-f/toml-f#usage">README.md中</a>🕹提供了一个简单的示例。我们自己写个示例进行演示：</p>
+<p><img src="Using-Open-Source-Code/media/toml-f-demo.png" alt="toml-demo" /></p>
+<p>我们读取了所有toml内的数据，读取结果全部符合预期，程序正常退出了🚀。</p>
+<h3 id="示例代码"><a class="header" href="#示例代码">示例代码</a></h3>
+<pre><code class="language-fortran">program main
+
+    use tomlf, only: toml_table, get_value, toml_parse, toml_array, len
+    implicit none
+    type(toml_table), allocatable :: intable
+    type(toml_table), pointer :: subtable
+    type(toml_array), pointer :: array
+    integer :: unit, i, z
+
+    !&gt; 目标读取变量
+    character(:), allocatable :: name
+    integer, allocatable :: x(:)
+    real :: y
+
+    open (newunit=unit, file=&quot;data.toml&quot;, status=&quot;old&quot;)
+
+    !&gt; 解析toml文件
+    call toml_parse(intable, unit)
+
+    !&gt; 读取主表根目录的各个值
+    
+    call get_value(intable, &quot;name&quot;, name)
+    call check(name == &quot;toml-demo&quot;, &quot;`name=='toml-demo'` failed&quot;)
+
+    call get_value(intable, &quot;x&quot;, array)
+    if (len(array) == 3) then
+        allocate (x(3))
+
+        do i = 1, 3
+
+            call get_value(array, i, x(i))
+
+        end do
+
+        call check(all(x == [1, 2, 3]), &quot;`x == [1, 2, 3]` failed&quot;)
+
+    else
+        error stop &quot;`x`数组长度不等于3&quot;
+    end if
+
+    !&gt; 读取子表的各个值
+    call get_value(intable, &quot;foo&quot;, subtable)
+    call get_value(subtable, &quot;y&quot;, y)
+    call check(abs(y - 10.0) &lt; 1.0E-6, &quot;`y == 10.0` failed&quot;)
+
+    !&gt; 读取一个不存在的值
+    call get_value(intable, &quot;z&quot;, z, stat=i)
+    !&gt; *注意*：z值不存在，但i返回成功值`0`
+    call check(i == 0, &quot;`i == 0` failed&quot;)
+
+    !&gt; 读取一个不存在的值，但提供默认值
+    call get_value(intable, &quot;z&quot;, z, 1, stat=i)
+    call check(i == 0, &quot;`i == 0` failed&quot;)
+    !&gt; 值不存在，但提供默认值，则z返回默认值
+    call check(z == 1, &quot;`z == 1` failed&quot;)
+
+    print *, &quot;读取结束，程序正常退出 ^_^&quot;
+contains
+
+    !&gt; 断言与测试
+    subroutine check(condition, msg)
+        logical, intent(in) :: condition     !! 测试条件
+        character(len=*), intent(in) :: msg  !! 测试失败时的消息
+        if (condition) return
+        error stop msg
+    end subroutine check
+
+end program main
+</code></pre>
+<pre><code class="language-toml"># data.toml
+name = &quot;toml-demo&quot;
+x = [1, 2, 3]
+
+[foo]
+y = 10.0
+</code></pre>
+<h2 id="说明"><a class="header" href="#说明">说明</a></h2>
+<pre><code class="language-fortran">module tomlf
+    public :: get_value, set_value  !! 读取、写入值
+    public :: toml_parse            !! 解析toml
+    public :: toml_error, toml_stat !! toml-f辅助类型
+    public :: toml_serializer       !! toml-f序列化例程
+    public :: toml_table, toml_array, toml_key, is_array_of_tables, new_table, add_table, add_array, len
+                                    !! toml-f辅助例程
+    public :: sort                  !! toml-f排序
+    public :: tomlf_version_string, tomlf_version_compact, get_tomlf_version  !! toml-f版本管理例程
+end module tomlf
+</code></pre>
+<p><code>toml-f</code>的API可以在<a href="https://toml-f.github.io/toml-f/"><code>https://toml-f.github.io/toml-f/</code></a>找到，也可以直接阅读源码，非常推荐阅读它的<a href="https://github.com/toml-f/toml-f/tree/main/test/tftest">单元测试源码</a>，里面有着很全的API使用。</p>
+<p>你可以模仿<code>fpm.toml</code>中toml的写法，或者去<a href="https://toml.io/cn/">TOML官网</a>查阅toml语法。</p>
+<p>我们先学习如何使用<code>toml-f</code>解析读取toml信息，在此过程中，我们逐渐熟悉其API的使用，读者如果有<strong>输出toml</strong>的需求，很容易理解使用<code>toml-f</code>写入toml。</p>
 <p>需要注意的有两点：</p>
 <ul>
 <li><code>toml</code>与<code>json</code>的转换在<a href="https://github.com/toml-f/toml-f/tree/main/test"><code>toml-f</code>的单元测试</a>中提供了代码。<br>
@@ -1599,7 +1670,7 @@ link = [&quot;openblas&quot;]
 <p>🔰 提示：这只是一个简单的演示，更多的例程使用还需要用户自行前往官方网站查询帮助文档。<br>
 做工程不是搞艺术，而且用户是被提供服务一方，不要过于纠结API接口的美观与否，形成可行的解决方案始终是第一要义。</p>
 </blockquote>
-<h3 id="示例代码"><a class="header" href="#示例代码">示例代码</a></h3>
+<h3 id="示例代码-1"><a class="header" href="#示例代码-1">示例代码</a></h3>
 <pre><code class="language-fortran">program main
 
     use, intrinsic :: iso_fortran_env, only: real64
