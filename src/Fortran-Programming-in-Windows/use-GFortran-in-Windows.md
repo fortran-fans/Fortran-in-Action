@@ -125,7 +125,7 @@ code .                      # 使用VS Code打开当前文件夹
 
 > 🔰 提示：`fpm build`类似Visual Studio的Debug模式，`fpm build --profile release`类似Visual Studio的Release模式。
 
-作为用户，我们可以阅读🔍[`Packaging with fpm`](https://fpm.fortran-lang.org/page/Packaging.html)和[`Manifest reference`](https://fpm.fortran-lang.org/page/Manifest.html)；如果我们想成为FPM的贡献者和开发者，阅读[FPM开发者文档](https://fpm.fortran-lang.org/index.html#fortran-package-manager-developer-documentation)将是有帮助的。
+作为用户，我们可以阅读🔍[fpm的用户中文帮助文档](https://fpm.fortran-lang.org/zh_CN/index.html)；如果我们想成为FPM的贡献者和开发者，阅读[FPM开发者文档](https://fpm.fortran-lang.org/index.html#fortran-package-manager-developer-documentation)将是有帮助的。
 
 ### 使用CMake构建代码（可选）
 
