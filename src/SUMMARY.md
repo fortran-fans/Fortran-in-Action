@@ -23,3 +23,4 @@
 - [拥抱开源，高效使用现代Fortran](Using-Open-Source-Code/README.md)
     - [为程序设置配置文件：TOML](Using-Open-Source-Code/Project-Configuration-TOML-F.md)
     - [使用OpenBLAS进行矩阵计算](Using-Open-Source-Code/Matrix-Calculation-OpenBLAS.md)
+    - [使用M_attr输出彩色控制台文本](Using-Open-Source-Code/Colorful-Console.md)
