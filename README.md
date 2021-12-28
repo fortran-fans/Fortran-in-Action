@@ -5,9 +5,11 @@
 
 《Fortran语言实战》是一份由Fortran爱好者（Fortran-Fans）社区驱动的Fortran语言编程实战教程。
 
+**呼吁：**_我们需要你们的帮助，欢迎你们为我们贡献教程，促成国内 Fortran 最新教程、信息的繁荣。_
+
 |项目|描述|
 |:-:|:-:|
-|版本：|0.0.1|
+|版本：|0.0.2|
 |作者：|Fortran爱好者（Fortran-Fans）|
 |网页：|https://fortran-fans.github.io/Fortran-in-Action/|
 |版权：|Copyright (c) 2021 Fortran-Fans|
@@ -17,8 +19,8 @@
 ### 软件依赖
 
 - Git
-- [Rust](https://www.rust-lang.org/zh-CN/)
-- [mdbook](https://github.com/rust-lang/mdBook)
+- [Rust](https://www.rust-lang.org/zh-CN/)（可选，用于构建 MDBook）
+- [mdbook](https://github.com/rust-lang/mdBook)（可选，用于构建 MDBook）
 
 ### 获取代码
 

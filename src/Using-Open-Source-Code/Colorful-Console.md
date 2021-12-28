@@ -21,13 +21,7 @@ M_attr之所以被推荐，是因为它足够简单，巧妙使用类似HTML的�
 
 ## 使用`M_attr`输出彩色控制台文本
 
-使用`M_attr`的第一个问题是UTF8编码，一般Linux终端都是支持UTF8的，但是Windows自带的终端（CMD.exe和Powershell.exe）不支持。
-
-可以通过以下方式来解决：
-- 临时使用chcp命令来设置编码，如`chcp 65001`，这样就可以使用UTF8编码了。（推荐方式）
-- 改变Windows系统的全局编码为UTF8。（不推荐！）
-
-第一种方式，可以广泛地在Powershell或Fish等命令行终端的`$profile`文件中进行预设。
+`M_attr`库可以在 GBK 编码的 CMD 或 UTF8 编码的 Bash 上正确运行。
 
 ### `attr`函数
 
