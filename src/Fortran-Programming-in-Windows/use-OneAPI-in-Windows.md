@@ -48,6 +48,8 @@ Windows下使用OneAPI，不一定必须要与VS搭配，Intel官方正在组织
 Visual Studio中使用OneAPI很方便也简单，此处暂不介绍，现在介绍VS Code中使用OneAPI的可行方式，**我们依然想将OneAPI在Windows下编程从Visual Studio中
 拉出来，加入fpm的生态进程中来。**
 
+> 🔰 Intel 已经为 VS Code 开发了相关插件 [Environment Configurator for Intel(R) oneAPI Toolkits](https://marketplace.visualstudio.com/items?itemName=intel-corporation.oneapi-environment-configurator)，与下文原理类似，但其会一定程度拖慢 VS Code 的启动时间，相信之后能得到改善。
+
 ### 基本原理
 
 OneAPI的运行环境依赖项较多，手动为它们添加环境路径几乎不现实，我们解析OneAPI在开始菜单为我们提供的命令行环境，来实现在VS Code的终端中引入OneAPI环境。
