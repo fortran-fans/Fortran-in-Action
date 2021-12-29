@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>使用 Lua 语言及其脚本实现 Fortran 程序的热重载 - Fortran语言实战</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">2.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">2.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">2.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">2.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">2.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">2.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">2.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">2.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/allocatable-arrays.html"><strong aria-hidden="true">2.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">2.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">2.10.</strong> 回调函数</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/type-casting.html"><strong aria-hidden="true">2.11.</strong> 类型转换</a></li></ol></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">3.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/Path-in-Windows.html"><strong aria-hidden="true">3.1.</strong> 环境路径</a></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/use-GFortran-in-Windows.html"><strong aria-hidden="true">3.2.</strong> 使用GFortran</a></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/use-OneAPI-in-Windows.html"><strong aria-hidden="true">3.3.</strong> 使用OneAPI套件</a></li></ol></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/index.html"><strong aria-hidden="true">4.</strong> 拥抱开源，高效使用现代Fortran</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Project-Configuration-TOML-F.html"><strong aria-hidden="true">4.1.</strong> 为程序设置配置文件：TOML</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Matrix-Calculation-OpenBLAS.html"><strong aria-hidden="true">4.2.</strong> 使用OpenBLAS进行矩阵计算</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Colorful-Console.html"><strong aria-hidden="true">4.3.</strong> 使用M_attr输出彩色控制台文本</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Test-Your-Code.html"><strong aria-hidden="true">4.4.</strong> 使用test-drive测试你的代码</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Fortran-Hot-reload-Powered-By-Lua.html" class="active"><strong aria-hidden="true">4.5.</strong> 使用 Lua 语言及其脚本实现 Fortran 程序的热重载</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Fortran语言实战</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        <a href="https://github.com/fortran-fans/Fortran-in-Action/tree/main/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                                                                        <a href="https://github.com/fortran-fans/Fortran-in-Action/edit/main/src/Using-Open-Source-Code/Fortran-Hot-reload-Powered-By-Lua.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="使用-lua-语言及其脚本实现-fortran-程序的热重载"><a class="header" href="#使用-lua-语言及其脚本实现-fortran-程序的热重载">使用 Lua 语言及其脚本实现 Fortran 程序的热重载</a></h1>
+<p><code>fortran-lua53</code>🔥仓库 (许可证: ISC，类似BSD-2): <a href="https://github.com/interkosmos/fortran-lua53">https://github.com/interkosmos/fortran-lua53</a></p>
+<p><code>fortran-lua</code>是 <a href="https://github.com/interkosmos">Philipp</a> 编写的开源项目，它是 Lua 5.3 的 Fortran 接口。</p>
+<div align="center">
+<img src="media/luaa.gif" alt="Lua" width="150">
+</div>
+<h2 id="lua-简介"><a class="header" href="#lua-简介">Lua 简介</a></h2>
+<p>Lua 由 C 语言编程，可以作为单独的 Lua 解释器或 C 语言函数库，是一名优秀小巧的函数式动态语言，其速度是动态语言中 Top 0 级别的，另外，Lua 语言是罕见的由发展中国家设计开发出的著名语言。</p>
+<p>它的主要应用场景是:</p>
+<ul>
+<li>为编译型语言带来灵活性;</li>
+<li>为编译型语言代码可拓展性，这一点体现在热重载能力。</li>
+</ul>
+<blockquote>
+<p>🔰 热重载: 一般情况下，当不具备任何反射特性的编译型语言一旦完成编译，实现部署，中途如果发现 Bug ，则需要重新修改源码，再进行编译部署，且需要中断之前正在运行的含 Bug 的程序。<br />
+但是，通过 Lua 脚本，比如 Fortran ，可以借助 Lua 只实现 Lua 脚本的内容，就能一定程度改变程序的后续运行过程，可以一定程度避免中断运行。<br />
+这点与配置文件似乎有着异曲同工之妙，但配置文件主要负责程序数据的配置，而 Lua 脚本则更体现出从函数（方法）上改变程序的运行业务，且更灵活，数据配置亦可。<br />
+所以，Lua 在游戏开发行业用的较多，可以为上线的游戏快速推送 Lua 补丁，性能又好，体积又小。</p>
+</blockquote>
+<h2 id="演示-使用-lua-脚本改变程序的运行效果"><a class="header" href="#演示-使用-lua-脚本改变程序的运行效果">演示: 使用 Lua 脚本改变程序的运行效果</a></h2>
+<p>我们演示一下在代码编写过程中写错了 Lua 业务，然后在不修改 Fortran 代码、不中断程序运行的情况下，实现 Lua 业务修改和正确运行：</p>
+<pre><code class="language-sh">cd workspace  # 切换到你常用的工作区间
+fpm new --app lua-demo  # 创建fpm项目
+cd lua-demo &amp;&amp; code .   # 切换到`lua-demo`文件夹，并使用vs code打开它
+</code></pre>
+<p>我们创建了一个<code>lua-demo</code>工程，使用vs code打开了它，我们可以在fpm工程的<code>fpm.toml</code>文件中添加以下语句，以使用<code>fortran-lua53</code>：</p>
+<pre><code class="language-toml">[dependencies]
+fortran-lua53 = { git = &quot;https://github.com/interkosmos/fortran-lua53.git&quot; }
+</code></pre>
+<p><img src="media/lua_false.png" alt="错误业务" /></p>
+<p>上图，我们“不小心”在 Lua 脚本中写了一个错误的<code>times</code>函数（粗心的程序员写成了加法函数），可是程序已经运行了，幸亏这个 Bug 不会导致程序崩溃，我们得赶紧修改它，并且将这个补丁发送给用户。</p>
+<pre><code class="language-sh"> 5 * 5 =           10
+ 按回车继续运行..
+</code></pre>
+<p><img src="media/lua_true.png" alt="正确业务" /></p>
+<p>我们在程序运行的间隙，修改了<code>times</code>函数的业务，并且推送给用户运行环境，此后程序业务得到正常合理运行。</p>
+<pre><code class="language-sh"> 5 * 5 =           25
+ 按回车继续运行..
+</code></pre>
+<p>我们能看到，Lua 脚本的强大之处，尤其是对强编译型语言的特殊需求，它使得程序变得更灵活，相当于用户业务程序实时自带了一个实时高效的 Lua 解释器。</p>
+<p>大多数情况下，这个特性常规用户是不太需要的，但确实为编程提供了一种特色强烈的可能性，跨语言交互和热重载。</p>
+<h2 id="代码"><a class="header" href="#代码">代码</a></h2>
+<pre><code class="language-fortran">program main
+    
+    use, intrinsic :: iso_c_binding, only: c_ptr
+    use lua
+    implicit none
+    !&gt; C 指针, 可以指向任何类型的 C 对象
+    type(c_ptr) :: l
+    integer :: rc
+    
+    do
+        !&gt; 启动 Lua 虚拟机
+        l = lual_newstate()
+        call lual_openlibs(l)
+        rc = lual_dofile(l, &quot;times.lua&quot;)
+        rc = lua_getglobal(l, &quot;times&quot;)
+        
+        !&gt; 推送参数值
+        call lua_pushinteger(l, 5)
+        call lua_pushinteger(l, 5)
+        rc = lua_pcall(l, 2, 1, 0)
+        
+        !&gt; 获取返回值
+        rc = lua_tointeger(l, -1)
+        call lua_pop(l, 1)
+        
+        print *, &quot;5 * 5 = &quot;, rc
+        print *, &quot;按回车继续运行..&quot;
+        read (*, *)
+        
+    end do
+    
+end program main
+</code></pre>
+<pre><code class="language-lua">-- 整数乘法
+function times(a, b)  
+    return a + b
+end
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../Using-Open-Source-Code/Test-Your-Code.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../Using-Open-Source-Code/Test-Your-Code.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
