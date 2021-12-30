@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>使用 Fprettify 格式化你的代码 - Fortran语言实战</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> 关于</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/introduction.html"><strong aria-hidden="true">2.</strong> Fortran最佳实践</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/fortran-style-guide.html"><strong aria-hidden="true">2.1.</strong> Fortran风格指导</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/floating-point-numbers.html"><strong aria-hidden="true">2.2.</strong> 浮点数</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/integer-division.html"><strong aria-hidden="true">2.3.</strong> 整数除法</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/modules-programs.html"><strong aria-hidden="true">2.4.</strong> 模块</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/arrays.html"><strong aria-hidden="true">2.5.</strong> 数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/multidim-arrays.html"><strong aria-hidden="true">2.6.</strong> 高维数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/element-operation.html"><strong aria-hidden="true">2.7.</strong> 逐元操作</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/allocatable-arrays.html"><strong aria-hidden="true">2.8.</strong> 可分配数组</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/file-io.html"><strong aria-hidden="true">2.9.</strong> 文件io</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/callbacks.html"><strong aria-hidden="true">2.10.</strong> 回调函数</a></li><li class="chapter-item expanded "><a href="../Fortran-Best-Practices/type-casting.html"><strong aria-hidden="true">2.11.</strong> 类型转换</a></li></ol></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/index.html"><strong aria-hidden="true">3.</strong> 在Windows系统下进行Fortran编程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/Path-in-Windows.html"><strong aria-hidden="true">3.1.</strong> 环境路径</a></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/use-GFortran-in-Windows.html"><strong aria-hidden="true">3.2.</strong> 使用GFortran</a></li><li class="chapter-item expanded "><a href="../Fortran-Programming-in-Windows/use-OneAPI-in-Windows.html"><strong aria-hidden="true">3.3.</strong> 使用OneAPI套件</a></li></ol></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/index.html"><strong aria-hidden="true">4.</strong> 拥抱开源，高效使用现代Fortran</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Project-Configuration-TOML-F.html"><strong aria-hidden="true">4.1.</strong> 为程序设置配置文件：TOML</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Matrix-Calculation-OpenBLAS.html"><strong aria-hidden="true">4.2.</strong> 使用OpenBLAS进行矩阵计算</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Colorful-Console.html"><strong aria-hidden="true">4.3.</strong> 使用M_attr输出彩色控制台文本</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Test-Your-Code.html"><strong aria-hidden="true">4.4.</strong> 使用test-drive测试你的代码</a></li><li class="chapter-item expanded "><a href="../Using-Open-Source-Code/Fortran-Hot-reload-Powered-By-Lua.html"><strong aria-hidden="true">4.5.</strong> 使用 Lua 语言及其脚本实现 Fortran 程序的热重载</a></li></ol></li><li class="chapter-item expanded "><a href="../Fortran-Developer-Tools/index.html"><strong aria-hidden="true">5.</strong> Fortran开发者编程工具集</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Fortran-Developer-Tools/Fprettify.html" class="active"><strong aria-hidden="true">5.1.</strong> 使用 Fprettify 格式化你的代码</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Fortran语言实战</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        <a href="https://github.com/fortran-fans/Fortran-in-Action/tree/main/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                                                                        <a href="https://github.com/fortran-fans/Fortran-in-Action/edit/main/src/Fortran-Developer-Tools/Fprettify.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="使用-fprettify-格式化你的代码"><a class="header" href="#使用-fprettify-格式化你的代码">使用 Fprettify 格式化你的代码</a></h1>
+<h2 id="简介"><a class="header" href="#简介">简介</a></h2>
+<p>Fprettify 是专用于 Fortran 的代码格式化工具。使用它可以解放我们的思想，使得代码保持统一的编程风格，使我们专注于代码业务。</p>
+<p>仓库：<a href="https://github.com/pseewald/fprettify">https://github.com/pseewald/fprettify</a></p>
+<h2 id="安装"><a class="header" href="#安装">安装</a></h2>
+<p>首先我们需要先安装 Python 3 和 PIP，然后安装 Fprettify：</p>
+<pre><code class="language-sh">pip install --upgrade fprettify
+</code></pre>
+<h2 id="使用-fprettify"><a class="header" href="#使用-fprettify">使用 Fprettify</a></h2>
+<p>但我们写完 Fortran 代码后，我们可以通过命令行工具 Fprettify 来格式化代码：</p>
+<pre><code class="language-sh">fprettify file.f90
+</code></pre>
+<p>更多的命令行参数可以使用 <code>fprettify --help</code> 查看。</p>
+<pre><code class="language-sh">$ fprettify --help
+usage: C:\msys64\ucrt64\bin\fprettify [-h] [-c CONFIG_FILE] [-i INDENT]
+                                      [-l LINE_LENGTH] [-w {0,1,2,3,4}]
+                                      [--whitespace-comma [WHITESPACE_COMMA]]
+                                      [--whitespace-assignment [WHITESPACE_ASSIGNMENT]]
+                                      [--whitespace-decl [WHITESPACE_DECL]]
+                                      [--whitespace-relational [WHITESPACE_RELATIONAL]]
+                                      [--whitespace-logical [WHITESPACE_LOGICAL]]
+                                      [--whitespace-plusminus [WHITESPACE_PLUSMINUS]]
+                                      [--whitespace-multdiv [WHITESPACE_MULTDIV]]
+                                      [--whitespace-print [WHITESPACE_PRINT]]
+                                      [--whitespace-type [WHITESPACE_TYPE]]
+                                      [--whitespace-intrinsics [WHITESPACE_INTRINSICS]]
+                                      [--strict-indent] [--enable-decl]
+                                      [--disable-indent]
+                                      [--disable-whitespace]
+                                      [--enable-replacements] [--c-relations]
+                                      [--case CASE CASE CASE CASE]
+                                      [--strip-comments] [--disable-fypp]
+                                      [--disable-indent-mod] [-d] [-s] [-S]
+                                      [-r] [-e EXCLUDE] [-f FORTRAN]
+                                      [--version]
+                                      [path ...]
+
+Auto-format modern Fortran source files. Config files ('.fprettify.rc') in the
+home (~) directory and any such files located in parent directories of the
+input file will be used. When the standard input is used, the search is
+started from the current directory.
+
+positional arguments:
+  path                  Paths to files to be formatted inplace. If no paths
+                        are given, stdin (-) is used by default. Path can be a
+                        directory if --recursive is used. (default: ['-'])
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG_FILE, --config-file CONFIG_FILE
+                        config file path (default: None)
+  -i INDENT, --indent INDENT
+                        relative indentation width (default: 3)
+  -l LINE_LENGTH, --line-length LINE_LENGTH
+                        column after which a line should end, viz. -ffree-
+                        line-length-n for GCC (default: 132)
+  -w {0,1,2,3,4}, --whitespace {0,1,2,3,4}
+                        Presets for the amount of whitespace - 0: minimal
+                        whitespace | 1: operators (except arithmetic),
+                        print/read | 2: operators, print/read, plus/minus | 3:
+                        operators, print/read, plus/minus, muliply/divide | 4:
+                        operators, print/read, plus/minus, muliply/divide,
+                        type component selector (default: 2)
+  --whitespace-comma [WHITESPACE_COMMA]
+                        boolean, en-/disable whitespace for comma/semicolons
+                        (default: None)
+  --whitespace-assignment [WHITESPACE_ASSIGNMENT]
+                        boolean, en-/disable whitespace for assignments
+                        (default: None)
+  --whitespace-decl [WHITESPACE_DECL]
+                        boolean, en-/disable whitespace for declarations
+                        (requires '--enable-decl') (default: None)
+  --whitespace-relational [WHITESPACE_RELATIONAL]
+                        boolean, en-/disable whitespace for relational
+                        operators (default: None)
+  --whitespace-logical [WHITESPACE_LOGICAL]
+                        boolean, en-/disable whitespace for logical operators
+                        (default: None)
+  --whitespace-plusminus [WHITESPACE_PLUSMINUS]
+                        boolean, en-/disable whitespace for plus/minus
+                        arithmetic (default: None)
+  --whitespace-multdiv [WHITESPACE_MULTDIV]
+                        boolean, en-/disable whitespace for multiply/divide
+                        arithmetic (default: None)
+  --whitespace-print [WHITESPACE_PRINT]
+                        boolean, en-/disable whitespace for print/read
+                        statements (default: None)
+  --whitespace-type [WHITESPACE_TYPE]
+                        boolean, en-/disable whitespace for select type
+                        components (default: None)
+  --whitespace-intrinsics [WHITESPACE_INTRINSICS]
+                        boolean, en-/disable whitespace for intrinsics like
+                        if/write/close (default: None)
+  --strict-indent       strictly impose indentation even for nested loops
+                        (default: False)
+  --enable-decl         enable whitespace formatting of declarations ('::'
+                        operator). (default: False)
+  --disable-indent      don't impose indentation (default: False)
+  --disable-whitespace  don't impose whitespace formatting (default: False)
+  --enable-replacements
+                        replace relational operators (e.g. '.lt.' &lt;--&gt; '&lt;')
+                        (default: False)
+  --c-relations         C-style relational operators ('&lt;', '&lt;=', ...)
+                        (default: False)
+  --case CASE CASE CASE CASE
+                        Enable letter case formatting of intrinsics by
+                        specifying which of keywords, procedures/modules,
+                        operators and constants (in this order) should be
+                        lowercased or uppercased - 0: do nothing | 1:
+                        lowercase | 2: uppercase (default: [0, 0, 0, 0])
+  --strip-comments      strip whitespaces before comments (default: False)
+  --disable-fypp        Disables the indentation of fypp preprocessor blocks.
+                        (default: False)
+  --disable-indent-mod  Disables the indentation after module / program.
+                        (default: False)
+  -d, --diff            Write file differences to stdout instead of formatting
+                        inplace (default: False)
+  -s, --stdout          Write to stdout instead of formatting inplace
+                        (default: False)
+  -S, --silent, --no-report-errors
+                        Don't write any errors or warnings to stderr (default:
+                        False)
+  -r, --recursive       Recursively auto-format all Fortran files in
+                        subdirectories of specified path; recognized filename
+                        extensions: .f, .for, .ftn, .f90, .f95, .f03, .fpp,
+                        .F, .FOR, .FTN, .F90, .F95, .F03, .FPP (default:
+                        False)
+  -e EXCLUDE, --exclude EXCLUDE
+                        File or directory patterns to be excluded when
+                        searching for Fortran files to format (default: [])
+  -f FORTRAN, --fortran FORTRAN
+                        Overrides default fortran extensions recognized by
+                        --recursive. Repeat this option to specify more than
+                        one extension. (default: [])
+  --version             show program's version number and exit
+
+Args that start with '--' (eg. -i) can also be set in a config file (specified
+via -c). Config file syntax allows: key=value, flag=true, stuff=[a,b,c] (for
+details, see syntax at https://goo.gl/R74nmi). If an arg is specified in more
+than one place, then commandline values override config file values which
+override defaults.
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../Fortran-Developer-Tools/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../Fortran-Developer-Tools/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
