@@ -26,12 +26,12 @@ pacman -S  ucrt64/mingw-w64-ucrt-x86_64-openblas  # 安装openblas
 
 ## Blas/Lapack的接口说明
 
-- 函数或子程序命名格式为`ABBCCC` ,其中A表示数据类型，BB表示矩阵类型，CCC表示运算类型(不足三个一般写CC)
-- A 有四种(S/D/C/Z), S 表示单精度浮点数`real(4)`,D表示双精度浮点数`real(8)`,C表示单精度复数`complex(4)`,Z表示双精度复数`complex(8)`
-- BB 例如 ge/一般矩阵，sy/对称矩阵，he/厄密矩阵等等，全部的类型可以在该网站查找， [矩阵类型](https://www.netlib.org/lapack/lug/node24.html)
-- CCC 例如 svd/svd分解，mm/矩阵相乘，ev/特征值问题等等
-- 组合起来，例如 dgemm/(双精度一般矩阵的乘法)，dsyev/(双精度对称矩阵的特征值问题)。关于全部接口的描述，参考网站， [Blas/Lapack接口](http://www.netlib.org/lapack/explore-html/modules.html)
-- 调用时,查看对应的接口，了解函数或者子程序的返回值，填写与之对应的参数，了解报错时返回值的含义
+- 函数或子程序命名格式为`ABBCCC` ，其中A表示数据类型，BB表示矩阵类型，CCC表示运算类型(不足三个一般写CC)。
+- A 有四种(S/D/C/Z)，S 表示单精度浮点数`real(4)`，D表示双精度浮点数`real(8)`，C表示单精度复数`complex(4)`,Z表示双精度复数`complex(8)`。
+- BB 例如 ge/一般矩阵，sy/对称矩阵，he/厄密矩阵等等，全部的类型可以在该网站查找， [矩阵类型](https://www.netlib.org/lapack/lug/node24.html)。
+- CCC 例如 svd/svd分解，mm/矩阵相乘，ev/特征值问题等等。
+- 组合起来，例如 dgemm/(双精度一般矩阵的乘法)，dsyev/(双精度对称矩阵的特征值问题)。关于全部接口的描述，参考网站， [Blas/Lapack接口](http://www.netlib.org/lapack/explore-html/modules.html)。
+- 调用时,查看对应的接口，了解函数或者子程序的返回值，填写与之对应的参数，了解报错时返回值的含义。
 - 目前并不支持四精度，如果需要，可自行下载源代码替换类型。
 
 
