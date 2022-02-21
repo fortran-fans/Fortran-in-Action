@@ -13,6 +13,7 @@
     - [文件io](Fortran-Best-Practices/file-io.md)
     - [回调函数](Fortran-Best-Practices/callbacks.md)
     - [类型转换](Fortran-Best-Practices/type-casting.md)
+    - [陷阱或缺陷](Fortran-Best-Practices/bug-trap.md)
 
 
 - [在Windows系统下进行Fortran编程](Fortran-Programming-in-Windows/README.md)
