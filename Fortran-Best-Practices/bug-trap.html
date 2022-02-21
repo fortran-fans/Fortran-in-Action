@@ -396,6 +396,29 @@ end program alloc
 <pre><code class="language-fortran">    a(:)=b+1 
 </code></pre>
 <p>此时，编译器会检查数组两边大小是否匹配，然后抛出错误。</p>
+<h2 id="浮点数精度的问题"><a class="header" href="#浮点数精度的问题">浮点数精度的问题</a></h2>
+<p>Fortran中默认的类型是<code>real</code>单精度,因此对于一个常数，默认只具有单精度，即7位有效数字</p>
+<pre><code class="language-fortran">    real(kind=8)::a
+    a=1.3
+    write(*,*)a
+</code></pre>
+<p>此时，虽然a是双精度，但是由于<code>1.3</code>只能保持单精度，所以赋值之后得到的结果为<code>1.29999995231628</code>而非<code>1.30000000000000</code>。
+所以在程序中，<strong>需要使用对应精度的常数</strong></p>
+<pre><code class="language-fortran">    real(kind=8)::a
+    a=1.3d0
+    write(*,*)a
+    a=1.3_8
+    write(*,*)a
+</code></pre>
+<p>两者均可。</p>
+<p>同理，在计算的时候也需要注意这一点</p>
+<pre><code class="language-fortran">    real(kind=8)::a,b
+    a=1.3d0
+    b=a*1.4 !精度不足 
+    write(*,*)b !1.81999996900558
+    b=a*1.4d0
+    write(*,*)b !1.82000000000000
+</code></pre>
 
                     </main>
 
