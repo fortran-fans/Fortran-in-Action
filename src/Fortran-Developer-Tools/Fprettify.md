@@ -17,8 +17,10 @@ pip install --upgrade fprettify
 
 但我们写完 Fortran 代码后，我们可以通过命令行工具 Fprettify 来格式化代码：
 ```sh
-fprettify file.f90
+fprettify -i 4 file.f90
 ```
+
+一般很多特性都有合适的默认值，`-i`是用来指定缩进的空格数，这是我们比较个性化和常用的。
 
 更多的命令行参数可以使用 `fprettify --help` 查看。
 ```sh
@@ -151,3 +153,8 @@ details, see syntax at https://goo.gl/R74nmi). If an arg is specified in more
 than one place, then commandline values override config file values which
 override defaults.
 ```
+
+## `fprettify` / `findent`
+
+`fprettify`的更新也不算频繁，它已经有1年没有版本更新了。
+与此同时，[`findent`](https://github.com/wvermin/findent)也是Fortran代码格式化工具，它自称比`fprettify`成熟，但似乎`fprettify`更易于使用。
