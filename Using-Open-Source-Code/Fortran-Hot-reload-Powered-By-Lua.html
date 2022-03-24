@@ -211,11 +211,11 @@ fortran-lua53 = { git = &quot;https://github.com/interkosmos/fortran-lua53.git&q
         !&gt; 推送参数值
         call lua_pushinteger(l, 5)
         call lua_pushinteger(l, 5)
-        rc = lua_pcall(l, 2, 1, 0)
+        rc = lua_pcall(l, 2, 1, 0) ! 调用times函数，推送2个参数，返回1个结果
         
         !&gt; 获取返回值
-        rc = lua_tointeger(l, -1)
-        call lua_pop(l, 1)
+        rc = lua_tointeger(l, -1) ! -index: 第几个返回值
+        call lua_pop(l, 1)        ! 弹出返回值及其数量
         
         print *, &quot;5 * 5 = &quot;, rc
         print *, &quot;按回车继续运行..&quot;
