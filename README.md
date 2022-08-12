@@ -1,18 +1,14 @@
 # Fortran语言实战
 
+[![Fortran-in-Action](https://img.shields.io/badge/Modern--in--Action-v0.1.0-blueviolet)][1]
 [![MIT](https://img.shields.io/github/license/fortran-fans/Fortran-in-Action?color=pink)](LICENSE)
-[![Actions Status](https://github.com/fortran-fans/Fortran-in-Action/workflows/mdbook/badge.svg)](https://github.com/fortran-fans/Fortran-in-Action/actions)
+[![Actions Status](https://github.com/fortran-fans/Fortran-in-Action/workflows/mdbook/badge.svg)](https://fortran-fans.github.io/Fortran-in-Action/)
 
 《Fortran语言实战》是一份由Fortran爱好者（Fortran-Fans）社区驱动的Fortran语言编程实战教程。
 
 **呼吁：**_我们需要你们的帮助，欢迎你们为我们贡献教程，促成国内 Fortran 最新教程、信息的繁荣。_
 
-|项目|描述|
-|:-:|:-:|
-|版本：|0.0.2|
-|作者：|Fortran爱好者（Fortran-Fans）|
-|网页：|https://fortran-fans.github.io/Fortran-in-Action/|
-|版权：|Copyright (c) 2021 Fortran-Fans|
+[1]: https://github.com/fortran-fans/Fortran-in-Action
 
 ## 开始
 
@@ -37,6 +33,15 @@ mdBook是一个从Markdown文件创建现代在线书籍的实用程序。<br>
 ```
 mdbook build
 ```
+
+如果你安装了 [scoop][1] ，则可以通过以下命令安装 mdbook：
+
+```sh
+scoop bucket add main
+scoop install mdbook
+```
+
+[1]: https://scoop.sh/
 
 ## 链接
 

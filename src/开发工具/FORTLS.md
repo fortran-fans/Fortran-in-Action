@@ -19,4 +19,4 @@
 pip install -U fortls # 更新到最新的`fortls`
 ```
 
-值得关注得是，它与`vs code`的`Modern Fortran`是很好的搭配。
+值得关注得是，它与`vs code`的`Modern Fortran`是很好的搭配，如今 `Modern Fortran` 已经更新至 3.2.0 版本，特点是开箱即用。
