@@ -1,0 +1,9 @@
+name = "m-attr-demo"
+version = "0.1.0"
+
+[dependencies]
+M_attr = { git="https://github.com/urbanjost/M_attr.git" }
+
+[[executable]]
+name = "main"
+main = "main.F90"
