@@ -2003,6 +2003,14 @@ link = [&quot;openblas&quot;]
     real(real64) :: A(2, 2), b(2, 1)  !! 线性方程组矩阵
     integer :: ipiv(2)  !! openblas中的行列交换标记、工作数组
     integer :: info     !! openblas中的返回值
+    !! fpm 限制了无接口函数的使用，此处需要显式接口 update : 2023-12-29
+    interface
+      subroutine dgesv( n, nrhs, a, lda, ipiv, b, ldb, info )
+          integer,intent(in)::lda, ldb, n, nrhs
+          integer,intent(inout)::ipiv(*),info
+          real(8),intent(inout)::a(lda,*), b(ldb,*)
+      end subroutine dgesv
+    end interface
 
     A = reshape([1.0, 3.0, 2.0, 4.0], [2, 2])
     b = reshape([7.0, 15.0], [2, 1])
